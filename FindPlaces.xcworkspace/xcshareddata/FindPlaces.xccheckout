@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>808BFD75-BA67-46A2-8B3E-D30F4FAB9F50</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FindPlaces</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>9BC5469E33237A7CCC219398BE30F4F7EE77E099</key>
+		<string>https://github.com/GauravGudaliya/FindPlaces.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>FindPlaces/FindPlaces.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>9BC5469E33237A7CCC219398BE30F4F7EE77E099</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/GauravGudaliya/FindPlaces.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>9BC5469E33237A7CCC219398BE30F4F7EE77E099</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>9BC5469E33237A7CCC219398BE30F4F7EE77E099</string>
+			<key>IDESourceControlWCCName</key>
+			<string>FindPlaces</string>
+		</dict>
+	</array>
+</dict>
+</plist>
