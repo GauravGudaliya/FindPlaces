@@ -23,16 +23,23 @@
     location=[[CLLocationManager alloc]init];
 
     [location startUpdatingLocation];
+    UIBarButtonItem *Back = [[UIBarButtonItem alloc]initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:self action:@selector(selectorBack)];
+    
+    self.navigationItem.leftBarButtonItem= Back;
+    
+    UIBarButtonItem *List = [[UIBarButtonItem alloc]initWithTitle:@"List" style:UIBarButtonItemStyleDone target:self action:@selector(selectorList)];
+    
+    self.navigationItem.rightBarButtonItem= List;
     _latitude=[[[_result objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"];
     _longitude=[[[_result objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"];
     GMSMarker *marker=[GMSMarker markerWithPosition:CLLocationCoordinate2DMake([_latitude doubleValue], [_longitude doubleValue])];
     
-    
+    marker.icon=[UIImage imageNamed:[NSString stringWithFormat:@"pin_%@",[[_result objectForKey:@"types"] objectAtIndex:0]]];
     _mapview.myLocationEnabled=YES;
     GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:_mapview.myLocation.coordinate zoom:10];
     _mapview.camera=camera;
     marker.map=_mapview;
-    [self droepath:_mapview.myLocation.coordinate :CLLocationCoordinate2DMake([_latitude doubleValue], [_longitude doubleValue])];
+    [self droepath:CLLocationCoordinate2DMake(23.027148, 72.508516) :CLLocationCoordinate2DMake([_latitude doubleValue], [_longitude doubleValue])];
    
 
 }
@@ -88,7 +95,15 @@
     {
         _mapview.mapType=kGMSTypeTerrain;
     }
+}
+-(void)selectorBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
     
+}
+-(void)selectorList
+{
+    [self.navigationController popViewControllerAnimated:YES];
     
 }
 @end

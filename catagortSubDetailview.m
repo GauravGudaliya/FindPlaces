@@ -96,7 +96,7 @@
 {
     catagorySubDetailviewmap *Catagorydetailviewmap=[self.storyboard instantiateViewControllerWithIdentifier:@"catagortSubDetailviewmap"];
     Catagorydetailviewmap.title=self.title;
- 
+
     Catagorydetailviewmap.result=results;
     [self.navigationController pushViewController:Catagorydetailviewmap animated:YES];
     

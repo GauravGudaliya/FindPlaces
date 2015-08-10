@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <CoreLocation/CoreLocation.h>
 @interface catagortSubDetailview :UIViewController
 {
     NSMutableData *webdata;
@@ -18,6 +18,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblcontact;
 @property (weak, nonatomic) IBOutlet UILabel *lblopne;
 @property (weak, nonatomic) IBOutlet UILabel *lblwebsite;
-
+@property(strong,nonatomic) CLLocation *location;
 @property(strong ,nonatomic) NSString *placeid;
 @end

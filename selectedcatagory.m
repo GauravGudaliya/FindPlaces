@@ -119,8 +119,7 @@
     [aTempArr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSString *aStrCate = obj;
         [self addCategoryDictFor:aStrCate toArr:typeArr];
-        NSString *str=[NSString stringWithFormat:@"insert into favorite(catagoryname,state) values('%@','%@')",aStrCate,@0];
-        [[Database sharedDatabase]Insert:str];
+        
     }];
     NSArray *arr=[[Database sharedDatabase]SelectAllFromTable:@"select * from favorite"];
     NSLog(@"%@",arr);
@@ -129,6 +128,7 @@
 -(void)addCategoryDictFor:(NSString*)strCateGory toArr:(NSMutableArray*)mutArr{
     NSMutableDictionary *aDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:strCateGory,@"category",@0,@"isSelected", nil];
     [mutArr addObject:aDict];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -147,7 +147,7 @@
 {
     UITableViewCell *cell1=[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     UILabel *lblname=(UILabel*)[cell1 viewWithTag:102];
-    
+    UIImageView *icon=(UIImageView*)[cell1 viewWithTag:101];
     NSMutableDictionary *aMutDict = [typeArr objectAtIndex:indexPath.row];
     
     NSString *aStrCategoryName = aMutDict[@"category"];
@@ -157,8 +157,9 @@
     btncheck=(UIButton*)[cell1 viewWithTag:103];
     btncheck.selected = isSelected;
     [btncheck addTarget:self action:@selector(btnchechaction:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
+    NSString *str=[NSString stringWithFormat:@"select * from favorite where catagoryname='%@'",[aMutDict objectForKey:@"category"]];
+    [[Database sharedDatabase]SelectAllFromTable:str];
+    NSLog(@"data %@",[[Database sharedDatabase]SelectAllFromTable:str]);
     return cell1;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -167,11 +168,8 @@
 }
 - (IBAction)btnHidetableview:(id)sender
 {
-    NSUserDefaults *default1=[NSUserDefaults standardUserDefaults];
-    [default1 setObject:selectedCatagory forKey:@"catagory"];
-    [default1 synchronize];
-   
-    NSLog(@"%@",[[NSUserDefaults standardUserDefaults] objectForKey:@"catagory"]);
+    NSArray *arr=[[Database sharedDatabase]SelectAllFromTable:@"select * from favorite"];
+    NSLog(@"%@",arr);
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 -(void)btnchechaction:(UIButton*)sender
@@ -186,16 +184,17 @@
     
     if ([[aDict objectForKey:@"isSelected"] intValue]==1)
     {
-        NSString *str=[NSString stringWithFormat:@"update favorite set state=0 where catagoryname=%@",[aDict objectForKey:@"category"]];
+        NSString *str=[NSString stringWithFormat:@"update favorite set state=1 where catagoryname='%@'",[aDict objectForKey:@"category"]];
         [[Database sharedDatabase]Update:str];
         NSLog(@"on");
     }
     else
     {
+        NSString *str=[NSString stringWithFormat:@"update favorite set state=0 where catagoryname='%@'",[aDict objectForKey:@"category"]];
+        [[Database sharedDatabase]Update:str];
         NSLog(@"off");
     }
-    
-    
-    
 }
+
+
 @end

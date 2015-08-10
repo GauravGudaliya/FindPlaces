@@ -42,7 +42,7 @@
         marker.appearAnimation = kGMSMarkerAnimationPop;
      
         marker.map = _mapview;
-        marker.icon = [UIImage imageNamed:@"pin_bank.png"];
+        marker.icon = [UIImage imageNamed:@"pin_bank1.png"];
         marker.title=[[_adata objectAtIndex:i] objectForKey:@"name"];
         
     }

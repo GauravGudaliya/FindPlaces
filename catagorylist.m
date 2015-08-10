@@ -5,7 +5,7 @@
 //  Created by Heart on 1/1/08.
 //  Copyright (c) 2008 Heart. All rights reserved.
 //
-
+#import "Database.h"
 #import "catagorylist.h"
 #import "MBProgressHUD.h"
 #import "SWRevealViewController.h"
@@ -25,7 +25,7 @@
     // self.navigationController.navigationBar.hidden=NO;
     
     
-        typeArr =[[NSMutableArray alloc]initWithObjects:@"accounting",
+        allTypearr =[[NSMutableArray alloc]initWithObjects:@"accounting",
       @"airport",
       @"amusement_park",
       @"aquarium",
@@ -138,25 +138,29 @@
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     }
 
-    barbutton=[[UIButton alloc]initWithFrame:CGRectMake(240, 20, 50,20)];
+    barbutton=[[UIButton alloc]initWithFrame:CGRectMake(250, 20,70 ,20)];
     [barbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     [barbutton addTarget:self action:@selector(btntypeAction) forControlEvents:UIControlEventTouchUpInside];
+    [barbutton setTitle:@"Option" forState:UIControlStateNormal];
     UIBarButtonItem *Leftbarbutton=[[UIBarButtonItem alloc]initWithCustomView:barbutton];
     
     self.navigationItem.rightBarButtonItem=Leftbarbutton;
-
-    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"List"])
-    {
-        barbutton.selected=NO;
-        [barbutton setTitle:@"Grid" forState:UIControlStateNormal];
-    }
-    else if([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"Grid"])
-    {
-         barbutton.selected=YES;
-        [barbutton setTitle:@"List" forState:UIControlStateNormal];
-    }
-    [self btntypeAction];
+    _mainView.hidden=YES;
+    _actioncatagory.selected=YES;;
+    _actionDisplay.selected=YES;
+//    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"List"])
+//    {
+//        barbutton.selected=NO;
+//        [barbutton setTitle:@"Grid" forState:UIControlStateNormal];
+//    }
+//    else if([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"Grid"])
+//    {
+//         barbutton.selected=YES;
+//        [barbutton setTitle:@"List" forState:UIControlStateNormal];
+//    }
+    
+//
     
 }
 
@@ -164,6 +168,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return typeArr.count;
@@ -248,18 +254,49 @@
     
     if (barbutton.selected == NO)
     {
-        _tabview.hidden=NO;
-        _colview.hidden=YES;
-        [barbutton setTitle:@"Grid" forState:UIControlStateNormal];
+        _mainView.hidden=NO;
         barbutton.selected=YES;
     }
     else
     {
-        _tabview.hidden=YES;
-        _colview.hidden=NO;
-        [barbutton setTitle:@"List" forState:UIControlStateNormal];
+        _mainView.hidden=YES;
         barbutton.selected=NO;
     }
 
-   }
+}
+- (IBAction)btnDisplay:(id)sender
+{
+    if(_actionDisplay.selected)
+    {
+        _colview.hidden=YES;
+        _tabview.hidden=NO;
+      
+        _actionDisplay.selected=!_actionDisplay.selected;
+    }
+    else
+    {
+        _colview.hidden=NO;
+        _tabview.hidden=YES;
+        _actionDisplay.selected=!_actionDisplay.selected;
+    }
+}
+- (IBAction)catagorylist:(id)sender
+{
+    if(_actioncatagory.selected)
+    {
+        typeArr=allTypearr;
+        _actioncatagory.selected=!_actioncatagory.selected;
+        [_tabview reloadData];
+        [_colview reloadData];
+    }
+    else
+    {
+        NSString *str=@"select catagoryname from favorite where state=1";
+        typeArr=[[Database sharedDatabase]SelectAllFromTable:str];
+        _actioncatagory.selected=!_actioncatagory.selected;
+        [_tabview reloadData];
+          [_colview reloadData];
+    }
+}
+
 @end
