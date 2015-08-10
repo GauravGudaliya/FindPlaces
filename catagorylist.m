@@ -25,7 +25,7 @@
     // self.navigationController.navigationBar.hidden=NO;
     
     
-        allTypearr =[[NSMutableArray alloc]initWithObjects:@"accounting",
+        allTypearr =[[NSArray alloc]initWithObjects:@"accounting",
       @"airport",
       @"amusement_park",
       @"aquarium",
@@ -284,7 +284,7 @@
 {
     if(_actioncatagory.selected)
     {
-        typeArr=allTypearr;
+        typeArr=[[NSMutableArray alloc]initWithArray:allTypearr];
         _actioncatagory.selected=!_actioncatagory.selected;
         [_tabview reloadData];
         [_colview reloadData];
@@ -292,7 +292,14 @@
     else
     {
         NSString *str=@"select catagoryname from favorite where state=1";
-        typeArr=[[Database sharedDatabase]SelectAllFromTable:str];
+        NSArray *arr=[[Database sharedDatabase]SelectAllFromTable:str];
+        NSLog(@"%@",arr);
+        [typeArr removeAllObjects];
+        for (int i=0; i<arr.count; i++)
+        {
+            [typeArr addObject:[[arr objectAtIndex:i]objectForKey:@"catagoryname"]];
+        }
+        NSLog(@"%@",typeArr);
         _actioncatagory.selected=!_actioncatagory.selected;
         [_tabview reloadData];
           [_colview reloadData];

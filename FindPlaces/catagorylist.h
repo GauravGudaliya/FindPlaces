@@ -14,7 +14,7 @@
 @interface catagorylist : UIViewController<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
 {
     NSMutableArray *typeArr;
-    NSMutableArray *allTypearr;
+    NSArray *allTypearr;
     CLLocationManager *locationManger;
     CLLocation *location;
     
