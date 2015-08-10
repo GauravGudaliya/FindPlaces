@@ -12,7 +12,7 @@
 @interface catagorySubDetailviewmap ()
 {
     CLLocationManager *location;
-    CLLocation *loca;
+    
 }
 @end
 
@@ -74,7 +74,7 @@
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations
 {
-    loca=[locations firstObject];
+    
 }
 - (IBAction)maptypeaction:(id)sender
 {
