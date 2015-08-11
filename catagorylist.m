@@ -9,6 +9,7 @@
 #import "catagorylist.h"
 #import "MBProgressHUD.h"
 #import "SWRevealViewController.h"
+#import "selectedcatagory.h"
 @interface catagorylist ()<CLLocationManagerDelegate>
 {
     UIButton *barbutton;
@@ -23,7 +24,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // self.navigationController.navigationBar.hidden=NO;
-    
     
         allTypearr =[[NSArray alloc]initWithObjects:@"accounting",
       @"airport",
@@ -147,21 +147,17 @@
     
     self.navigationItem.rightBarButtonItem=Leftbarbutton;
     _mainView.hidden=YES;
-    _actioncatagory.selected=YES;;
-    _actionDisplay.selected=YES;
-//    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"List"])
-//    {
-//        barbutton.selected=NO;
-//        [barbutton setTitle:@"Grid" forState:UIControlStateNormal];
-//    }
-//    else if([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"Grid"])
-//    {
-//         barbutton.selected=YES;
-//        [barbutton setTitle:@"List" forState:UIControlStateNormal];
-//    }
     
-//
     
+    typeArr=[[NSMutableArray alloc]initWithArray:allTypearr];
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"List"])
+    {
+       _actioncatagory.selected=NO;
+    }
+    else if([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"Grid"])
+    {
+        _actioncatagory.selected=YES;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -182,21 +178,31 @@
     image.clipsToBounds=YES;
     UILabel *lbl=(UILabel *)[cell1 viewWithTag:100];
     lbl.text=[[[typeArr objectAtIndex:indexPath.row] capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+
     return cell1;
+    
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    catagorydetailview *Catagorydetailview=[self.storyboard instantiateViewControllerWithIdentifier:@"catagoryDetailviewSegue"];
-    [self.navigationController pushViewController:Catagorydetailview animated:YES];
+    if ([[typeArr objectAtIndex:indexPath.row]isEqualToString:@"add"])
+    {
+        selectedcatagory *vc=[self.storyboard instantiateViewControllerWithIdentifier:@"tableView"];
+        [self presentViewController:vc animated:YES completion:nil];
+    }
+    else
+    {
+        catagorydetailview *Catagorydetailview=[self.storyboard instantiateViewControllerWithIdentifier:@"catagoryDetailviewSegue"];
+        [self.navigationController pushViewController:Catagorydetailview animated:YES];
+        
+        Catagorydetailview.title=[[[typeArr objectAtIndex:indexPath.row] capitalizedString]     stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+        _type=[typeArr objectAtIndex:indexPath.row];
+        Catagorydetailview.latitude=_latitude;
+        Catagorydetailview.longitude=_longitude;
+        Catagorydetailview.type=_type;
     
-    Catagorydetailview.title=[[[typeArr objectAtIndex:indexPath.row] capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-    _type=[typeArr objectAtIndex:indexPath.row];
-    Catagorydetailview.latitude=_latitude;
-    Catagorydetailview.longitude=_longitude;
-    Catagorydetailview.type=_type;
-    
-    Catagorydetailview.row=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
-    NSLog(@"%@",[typeArr objectAtIndex:indexPath.row]);
+        Catagorydetailview.row=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
+       
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -205,7 +211,6 @@
     location=[locations lastObject];
     _latitude=[NSString stringWithFormat:@"%f",location.coordinate.latitude];
     _longitude=[NSString stringWithFormat:@"%f",location.coordinate.longitude];
-    NSLog(@"%@,%@",_latitude,_longitude);
 }
 #pragma mark -Table View Deleget
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -225,14 +230,10 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Reachability *reachibility=[Reachability reachabilityForInternetConnection];
-    NetworkStatus status=[reachibility currentReachabilityStatus];
-    [reachibility startNotifier];
-    if (status == !NotReachable)
+    if ([[typeArr objectAtIndex:indexPath.row]isEqualToString:@"add"])
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Status" message:@"Newtwork is Not Available \n Please Check ?" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil,nil];
-        alert.tag=001;
-    [alert show];
+        selectedcatagory *vc=[self.storyboard instantiateViewControllerWithIdentifier:@"tableView"];
+        [self presentViewController:vc animated:YES completion:nil];
     }
     else
     {
@@ -246,12 +247,11 @@
         Catagorydetailview.type=_type;
     
         Catagorydetailview.row=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
-        NSLog(@"%@",[typeArr objectAtIndex:indexPath.row]);
+      
     }
 }
 - (IBAction)btntypeAction
 {
-    
     if (barbutton.selected == NO)
     {
         _mainView.hidden=NO;
@@ -266,17 +266,18 @@
 }
 - (IBAction)btnDisplay:(id)sender
 {
+   
     if(_actionDisplay.selected)
     {
-        _colview.hidden=YES;
-        _tabview.hidden=NO;
-      
+        _colview.hidden=NO;
+        _tabview.hidden=YES;
         _actionDisplay.selected=!_actionDisplay.selected;
     }
     else
     {
-        _colview.hidden=NO;
-        _tabview.hidden=YES;
+       
+        _colview.hidden=YES;
+        _tabview.hidden=NO;
         _actionDisplay.selected=!_actionDisplay.selected;
     }
 }
@@ -293,17 +294,23 @@
     {
         NSString *str=@"select catagoryname from favorite where state=1";
         NSArray *arr=[[Database sharedDatabase]SelectAllFromTable:str];
-        NSLog(@"%@",arr);
         [typeArr removeAllObjects];
         for (int i=0; i<arr.count; i++)
         {
             [typeArr addObject:[[arr objectAtIndex:i]objectForKey:@"catagoryname"]];
         }
-        NSLog(@"%@",typeArr);
+        if ([arr lastObject]||arr.count==0) {
+            [typeArr addObject:@"add"];
+        }
         _actioncatagory.selected=!_actioncatagory.selected;
         [_tabview reloadData];
           [_colview reloadData];
     }
 }
-
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    _mainView.hidden=YES;
+     barbutton.selected=NO;
+    
+}
 @end

@@ -21,8 +21,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     location=[[CLLocationManager alloc]init];
-
-    [location startUpdatingLocation];
+    locationManger.delegate=self;
+    if([locationManger respondsToSelector:@selector(requestWhenInUseAuthorization)])
+    {
+        [locationManger requestWhenInUseAuthorization];
+    }
+    [locationManger startUpdatingLocation];
+    
     UIBarButtonItem *Back = [[UIBarButtonItem alloc]initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:self action:@selector(selectorBack)];
     
     self.navigationItem.leftBarButtonItem= Back;
@@ -36,19 +41,21 @@
     
     marker.icon=[UIImage imageNamed:[NSString stringWithFormat:@"pin_%@",[[_result objectForKey:@"types"] objectAtIndex:0]]];
     _mapview.myLocationEnabled=YES;
-    GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:_mapview.myLocation.coordinate zoom:10];
-    _mapview.camera=camera;
+//    GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:_mapview.myLocation.coordinate zoom:10];
+//    _mapview.camera=camera;
     marker.map=_mapview;
     [self droepath:CLLocationCoordinate2DMake(23.027148, 72.508516) :CLLocationCoordinate2DMake([_latitude doubleValue], [_longitude doubleValue])];
+    _mapview.settings.myLocationButton=YES;
+    _mapview.settings.compassButton=YES;
+     
    
-
 }
 -(void)droepath:(CLLocationCoordinate2D)fromlocation :(CLLocationCoordinate2D)tolocation
 {
     NSString *baseUrl = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&sensor=true", fromlocation.latitude,  fromlocation.longitude, tolocation.latitude,  tolocation.longitude];
     
     NSURL *url = [NSURL URLWithString:[baseUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSLog(@"Url: %@", url);
+ 
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
     
@@ -74,7 +81,18 @@
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations
 {
+    CLLocation *locat=[locations firstObject];
+    GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:locat.coordinate zoom:18];
+    _mapview.camera=camera;
+    CLLocationCoordinate2D circleCenter = locat.coordinate;
+    GMSCircle *circ = [GMSCircle circleWithPosition:circleCenter
+                                             radius:[[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"] integerValue]];
+    circ.fillColor = [UIColor colorWithRed:0 green:0 blue:0.25 alpha:0.50];
+    circ.strokeColor = [UIColor blueColor];
+    circ.strokeWidth = 5;
+    circ.map = _mapview;
     
+    [locationManger stopUpdatingLocation];
 }
 - (IBAction)maptypeaction:(id)sender
 {

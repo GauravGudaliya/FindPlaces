@@ -42,7 +42,7 @@
         _displayname.on=NO;
     }
     _sliderRdiuse.value=[[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"] integerValue];
-    _txtRdius.text=[NSString stringWithFormat:@"%d",(int)_sliderRdiuse.value];
+    _txtRdius.text=[NSString stringWithFormat:@"%d km",(int)_sliderRdiuse.value];
     
 }
 
@@ -140,7 +140,7 @@
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"Enter the between 0 to 1000" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
-      _txtRdius.text=[NSString stringWithFormat:@"%d",(int)_sliderRdiuse.value];  
+      _txtRdius.text=[NSString stringWithFormat:@"%d km" ,(int)_sliderRdiuse.value];
     }
 }
 - (IBAction)displaynameAction:(id)sender
@@ -166,7 +166,7 @@
 }
 - (IBAction)sliderradiusAction:(id)sender
 {
-    _txtRdius.text=[NSString stringWithFormat:@"%d",(int)_sliderRdiuse.value];
+    _txtRdius.text=[NSString stringWithFormat:@"%d km",(int)_sliderRdiuse.value];
     [self radiusvalue];
 
 }

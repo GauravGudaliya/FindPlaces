@@ -24,6 +24,7 @@
 @property(strong,nonatomic)NSString *type;
 @property (weak, nonatomic) IBOutlet UITableView *tabview;
 @property (weak, nonatomic) IBOutlet UIView *mainView;
+@property (weak, nonatomic) IBOutlet UIView *subView;
 @property (weak, nonatomic) IBOutlet UISlider *sliderRdiuse;
 @property (weak, nonatomic) IBOutlet UITextField *txtRdius;
 @property (weak, nonatomic) IBOutlet UIImageView *notFoundicon;

@@ -382,28 +382,27 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="t3M-pi-Ct9">
-                                        <rect key="frame" x="250" y="0.0" width="70" height="140"/>
+                                        <rect key="frame" x="270" y="0.0" width="50" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="rCO-Tt-VF7">
-                                                <rect key="frame" x="0.0" y="70" width="70" height="70"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="All">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="catagorylist:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="uyX-51-7bQ"/>
-                                                </connections>
-                                            </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rmt-Ej-lPd">
-                                                <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" red="0.50196081400000003" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <state key="normal" title="List" image="Gried View.png"/>
-                                                <state key="selected" image="List View Final.png"/>
+                                                <state key="normal" title="List" image="List View Final.png"/>
+                                                <state key="selected" image="Gried View.png"/>
                                                 <connections>
                                                     <action selector="btnDisplay:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="mhb-oF-YvQ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rCO-Tt-VF7">
+                                                <rect key="frame" x="0.0" y="50" width="50" height="50"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" image="faverite_UnSelected.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="selected" image="faverite_Selected.png"/>
+                                                <connections>
+                                                    <action selector="catagorylist:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="uyX-51-7bQ"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -690,10 +689,11 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MZm-Ka-y7D">
-                                <rect key="frame" x="0.0" y="538" width="320" height="30"/>
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Map">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -754,6 +754,7 @@
                         <outlet property="mainView" destination="WM1-7f-pU8" id="AoR-dp-v8G"/>
                         <outlet property="notFoundicon" destination="ijO-38-3Nd" id="C3X-qg-Ryh"/>
                         <outlet property="sliderRdiuse" destination="8rX-96-nvl" id="Th7-pY-WT7"/>
+                        <outlet property="subView" destination="cXv-ST-eEP" id="bL8-fH-g39"/>
                         <outlet property="tabview" destination="Rpt-a4-JBe" id="G4o-eD-hPO"/>
                         <outlet property="txtRdius" destination="XlZ-Xu-MAu" id="S4I-vL-GED"/>
                     </connections>
@@ -987,7 +988,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="5iW-6R-80B">
-                                                    <rect key="frame" x="8" y="6" width="41" height="31"/>
+                                                    <rect key="frame" x="8" y="8" width="43" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                                 <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fTY-Y0-Inc">
@@ -1037,6 +1038,8 @@
         <image name="checkbox-checked.png" width="16" height="16"/>
         <image name="checkbox_checked_icon.png" width="48" height="48"/>
         <image name="checkbox_unchecked_icon.png" width="48" height="48"/>
+        <image name="faverite_Selected.png" width="70" height="70"/>
+        <image name="faverite_UnSelected.png" width="70" height="70"/>
         <image name="notFound_Icon.png" width="200" height="200"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

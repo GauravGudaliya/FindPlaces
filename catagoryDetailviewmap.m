@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-    NSLog(@"%@",_adata);
+  
     UIBarButtonItem *Back = [[UIBarButtonItem alloc]initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:self action:@selector(selectorBack)];
     
     self.navigationItem.leftBarButtonItem= Back;
@@ -42,12 +42,14 @@
         marker.appearAnimation = kGMSMarkerAnimationPop;
      
         marker.map = _mapview;
-        marker.icon = [UIImage imageNamed:@"pin_bank1.png"];
+        marker.icon = [UIImage imageNamed:[NSString stringWithFormat:@"pin_%@",[[[_adata objectAtIndex:i]objectForKey:@"types"] objectAtIndex:0]]];
+       
         marker.title=[[_adata objectAtIndex:i] objectForKey:@"name"];
         
     }
-    
-   }
+    _mapview.settings.myLocationButton=YES;
+    _mapview.settings.compassButton=YES;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -59,6 +61,14 @@
     CLLocation *locat=[locations firstObject];
     GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:locat.coordinate zoom:18];
     _mapview.camera=camera;
+    CLLocationCoordinate2D circleCenter = locat.coordinate;
+    GMSCircle *circ = [GMSCircle circleWithPosition:circleCenter
+                                             radius:[[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"] integerValue]];
+    circ.fillColor = [UIColor colorWithRed:0 green:0 blue:0.25 alpha:0.50];
+    circ.strokeColor = [UIColor blueColor];
+    circ.strokeWidth = 5;
+    circ.map = _mapview;
+
     [locationManger stopUpdatingLocation];
 }
 -(void)selectorBack

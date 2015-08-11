@@ -57,7 +57,8 @@
     _notFoundicon.hidden=YES;
     _mainView.hidden=YES;
     _sliderRdiuse.value=[[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"] integerValue];
-    _txtRdius.text=[NSString stringWithFormat:@"%d",(int)_sliderRdiuse.value];
+    _txtRdius.text=[NSString stringWithFormat:@"%d km",(int)_sliderRdiuse.value];
+    _subView.layer.cornerRadius=20;
 }
 - (void)didReceiveMemoryWarning
 {
@@ -79,17 +80,14 @@
 {
     [[AppDelegate sharedInstance] hideHUD];
     result=[NSJSONSerialization JSONObjectWithData:webdata options:NSJSONReadingMutableContainers error:nil];
-    NSLog(@"%@",result);
+   
     placesArr=[result objectForKey:@"results"] ;
     if (placesArr.count > 0)
     {
         _tabview.hidden=NO;
         [_tabview reloadData];
-    } else {
-        
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:[NSString stringWithFormat:@"Near by %@ not Found",self.title] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil,nil];
-//        alert.tag=10;
-//        [alert show];
+    } else
+    {
         _tabview.hidden=YES;
         _notFoundicon.hidden=NO;
     }
@@ -177,7 +175,7 @@
 }
 - (IBAction)sliderradiusAction:(id)sender
 {
-    _txtRdius.text=[NSString stringWithFormat:@"%d",(int)_sliderRdiuse.value];
+    _txtRdius.text=[NSString stringWithFormat:@"%d km",(int)_sliderRdiuse.value];
     [self radiusvalue];
 }
 -(void)radiusvalue
@@ -190,7 +188,7 @@
     {
         UIAlertView *alert=[[UIAlertView alloc]initWithTitle:nil message:@"Enter the between 0 to 1000" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
         [alert show];
-        _txtRdius.text=[NSString stringWithFormat:@"%d",(int)_sliderRdiuse.value];
+        _txtRdius.text=[NSString stringWithFormat:@"%d km",(int)_sliderRdiuse.value];
     }
 }
 - (IBAction)actionRadius:(id)sender

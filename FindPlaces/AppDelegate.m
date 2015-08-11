@@ -25,6 +25,16 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     _navController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
     
+    Reachability *reachibility=[Reachability reachabilityForInternetConnection];
+    NetworkStatus status=[reachibility currentReachabilityStatus];
+    [reachibility startNotifier];
+    if (status == !NotReachable)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Status" message:@"Newtwork is Not Available \n Please Check ?" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil,nil];
+        alert.tag=001;
+        [alert show];
+    }
+
     [self.navController setNavigationBarHidden:YES];
     [GMSServices provideAPIKey:APIKey];
     return YES;

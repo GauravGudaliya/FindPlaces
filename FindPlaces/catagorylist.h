@@ -10,7 +10,7 @@
 #import "catagorydetailview.h"
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
-#import "Reachability.h"
+
 @interface catagorylist : UIViewController<UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UITableViewDataSource,UITableViewDelegate>
 {
     NSMutableArray *typeArr;

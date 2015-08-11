@@ -42,7 +42,8 @@
         [_selectDrower setAction: @selector( revealToggle: )];
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     }
-
+    _mapView.settings.myLocationButton=YES;
+    _mapView.settings.compassButton=YES;
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
@@ -82,6 +83,27 @@
     _mapView.myLocationEnabled=YES;
     GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:CLLocationCoordinate2DMake([[aDictLocation objectForKey:@"lat"] floatValue],[[aDictLocation objectForKey:@"lng"] floatValue]) zoom:10];
     _mapView.camera=camera;
+    
+    NSString *baseUrl =[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%@,%@&radius=%@&key=%@",[aDictLocation objectForKey:@"lat"],[aDictLocation objectForKey:@"lng"],[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"],APIKey];
+    
+    NSURL *url = [NSURL URLWithString:[baseUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSLog(@"Url: %@", url);
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        NSDictionary *aDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+        
+        NSString *aStrPoints = [[[[aDict objectForKey:@"routes"] firstObject] objectForKey:@"overview_polyline"] objectForKey:@"points"];
+        
+        GMSPath *path =  [GMSPath pathFromEncodedPath:aStrPoints];
+        GMSPolyline *polyLine = [GMSPolyline polylineWithPath:path];
+        polyLine.strokeWidth = 3.0;
+        polyLine.strokeColor =  [UIColor redColor];
+        polyLine.map= _mapView;
+    }];
+
 
 }
 -(void)placeSearchWillShowResult
