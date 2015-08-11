@@ -58,7 +58,7 @@
     _mainView.hidden=YES;
     _sliderRdiuse.value=[[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"] integerValue];
     _txtRdius.text=[NSString stringWithFormat:@"%d km",(int)_sliderRdiuse.value];
-    _subView.layer.cornerRadius=20;
+    _subView.layer.cornerRadius=5;
 }
 - (void)didReceiveMemoryWarning
 {

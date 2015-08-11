@@ -10,6 +10,9 @@
 #import "SWRevealViewController.h"
 #import "Constant.h"
 @interface searchclass ()
+{
+    NSMutableArray *adata;
+}
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *selectDrower;
 @end
 
@@ -87,24 +90,35 @@
     NSString *baseUrl =[NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=%@,%@&radius=%@&key=%@",[aDictLocation objectForKey:@"lat"],[aDictLocation objectForKey:@"lng"],[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"],APIKey];
     
     NSURL *url = [NSURL URLWithString:[baseUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSLog(@"Url: %@", url);
+  
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-    
+ 
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         
         NSDictionary *aDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-        
-        NSString *aStrPoints = [[[[aDict objectForKey:@"routes"] firstObject] objectForKey:@"overview_polyline"] objectForKey:@"points"];
-        
-        GMSPath *path =  [GMSPath pathFromEncodedPath:aStrPoints];
-        GMSPolyline *polyLine = [GMSPolyline polylineWithPath:path];
-        polyLine.strokeWidth = 3.0;
-        polyLine.strokeColor =  [UIColor redColor];
-        polyLine.map= _mapView;
+      
+        adata=[aDict objectForKey:@"results"];
+        for (int i=0; i<adata.count; i++)
+        {
+            GMSMarker *marker = [[GMSMarker alloc] init];
+            marker.position =CLLocationCoordinate2DMake([[[[[adata objectAtIndex:i] objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"] doubleValue], [[[[[adata objectAtIndex:i] objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"] doubleValue]);
+            marker.appearAnimation = kGMSMarkerAnimationPop;
+            marker.map = _mapView;
+            marker.title=[[adata objectAtIndex:i] objectForKey:@"name"];
+        }
+        CLLocationCoordinate2D circleCenter =CLLocationCoordinate2DMake([[aDictLocation objectForKey:@"lat"] floatValue],[[aDictLocation objectForKey:@"lng"] floatValue]);
+        GMSCircle *circ = [GMSCircle circleWithPosition:circleCenter
+                                                 radius:[[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"] integerValue]];
+        circ.fillColor = [UIColor colorWithRed:0 green:0 blue:0.25 alpha:0.25];
+        circ.strokeColor = [UIColor blueColor];
+        circ.strokeWidth = 5;
+        circ.map = _mapView;
+        GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:CLLocationCoordinate2DMake([[aDictLocation objectForKey:@"lat"] floatValue],[[aDictLocation objectForKey:@"lng"] floatValue])zoom:15];
+        _mapView.camera=camera;
+
     }];
-
-
+    
 }
 -(void)placeSearchWillShowResult
 {

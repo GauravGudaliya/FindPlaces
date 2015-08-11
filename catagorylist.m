@@ -254,19 +254,18 @@
 {
     if (barbutton.selected == NO)
     {
-        _mainView.hidden=NO;
+        [self presentOptions];
         barbutton.selected=YES;
     }
     else
     {
-        _mainView.hidden=YES;
+        [self dismissOptions];
         barbutton.selected=NO;
     }
 
 }
 - (IBAction)btnDisplay:(id)sender
 {
-   
     if(_actionDisplay.selected)
     {
         _colview.hidden=NO;
@@ -275,7 +274,6 @@
     }
     else
     {
-       
         _colview.hidden=YES;
         _tabview.hidden=NO;
         _actionDisplay.selected=!_actionDisplay.selected;
@@ -309,8 +307,31 @@
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    _mainView.hidden=YES;
+    [self dismissOptions];
      barbutton.selected=NO;
     
+}
+
+-(void)presentOptions{
+    _mainView.hidden = NO;
+    _mainView.backgroundColor = [UIColor clearColor];
+    _subView.transform = CGAffineTransformTranslate(_subView.transform, 0, -_subView.frame.size.height);
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        _mainView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        _subView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+-(void)dismissOptions{
+
+    [UIView animateWithDuration:0.4 animations:^{
+        _subView.transform = CGAffineTransformTranslate(_mainView.transform, 0.0, -_subView.frame.size.height);
+        _mainView.backgroundColor = [UIColor clearColor];
+    } completion:^(BOOL finished) {
+        _mainView.hidden =  YES;
+    }];
+
 }
 @end

@@ -67,7 +67,7 @@
     NSString *aStrCategoryName = aMutDict[@"category"];
     BOOL isSelected = [aMutDict[@"isSelected"] boolValue];
     
-    lblname.text=aStrCategoryName;
+    lblname.text=[[aStrCategoryName capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
     icon.image=[UIImage imageNamed:[NSString stringWithFormat:@"pin_%@",[typeArr objectAtIndex:indexPath.row][@"category"]]];
     btncheck=(UIButton*)[cell1 viewWithTag:103];
     btncheck.selected = isSelected;

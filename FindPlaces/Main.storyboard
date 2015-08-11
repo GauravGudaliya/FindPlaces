@@ -137,7 +137,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="vhv-MF-aq3">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="settings.png" id="vhv-MF-aq3">
                                             <rect key="frame" x="8" y="4" width="38" height="35"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         </imageView>
@@ -388,6 +388,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rmt-Ej-lPd">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                                 <state key="normal" title="List" image="List View Final.png"/>
                                                 <state key="selected" image="Gried View.png"/>
                                                 <connections>
@@ -397,6 +398,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rCO-Tt-VF7">
                                                 <rect key="frame" x="0.0" y="50" width="50" height="50"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <inset key="imageEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
                                                 <state key="normal" image="faverite_UnSelected.png">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -406,6 +408,7 @@
                                                 </connections>
                                             </button>
                                         </subviews>
+                                        <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.60999999999999999" colorSpace="calibratedRGB"/>
@@ -413,8 +416,8 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Find Places" id="LN6-Cv-cew">
-                        <barButtonItem key="leftBarButtonItem" title="Menu" id="kLs-SG-MvN"/>
+                    <navigationItem key="navigationItem" title="Find Places" id="2bG-xO-6p8">
+                        <barButtonItem key="leftBarButtonItem" title="Menu" id="Rwm-QZ-ahg"/>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
@@ -423,7 +426,7 @@
                         <outlet property="actioncatagory" destination="rCO-Tt-VF7" id="Njq-Xm-i5X"/>
                         <outlet property="colview" destination="Rgp-tT-kR1" id="XKQ-dk-E8T"/>
                         <outlet property="mainView" destination="Bht-XZ-Ah5" id="YJc-Ai-lTm"/>
-                        <outlet property="selectDrower" destination="kLs-SG-MvN" id="YvN-s5-4Q9"/>
+                        <outlet property="selectDrower" destination="Rwm-QZ-ahg" id="JMT-ew-UvE"/>
                         <outlet property="subView" destination="t3M-pi-Ct9" id="WV4-bF-EFY"/>
                         <outlet property="tabview" destination="wjA-fV-1pc" id="zVr-DK-zXA"/>
                     </connections>
@@ -709,18 +712,18 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="cXv-ST-eEP">
-                                        <rect key="frame" x="0.0" y="200" width="320" height="100"/>
+                                        <rect key="frame" x="12" y="200" width="296" height="100"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1000" id="8rX-96-nvl">
-                                                <rect key="frame" x="6" y="60" width="308" height="31"/>
+                                                <rect key="frame" x="6" y="38" width="227" height="31"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <connections>
                                                     <action selector="sliderradiusAction:" destination="xVh-KO-Gzg" eventType="valueChanged" id="0cJ-Dh-u7u"/>
                                                 </connections>
                                             </slider>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xM5-5D-4eT">
-                                                <rect key="frame" x="250" y="0.0" width="70" height="30"/>
+                                                <rect key="frame" x="226" y="0.0" width="70" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <state key="normal" title="Done">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -730,7 +733,7 @@
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="XlZ-Xu-MAu">
-                                                <rect key="frame" x="0.0" y="0.0" width="97" height="30"/>
+                                                <rect key="frame" x="237" y="38" width="51" height="30"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -771,6 +774,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="images (1).jpeg" id="Jmv-hc-yv5">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="2b2-pE-T2V">
                                 <rect key="frame" x="0.0" y="73" width="320" height="5"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1040,7 +1047,9 @@
         <image name="checkbox_unchecked_icon.png" width="48" height="48"/>
         <image name="faverite_Selected.png" width="70" height="70"/>
         <image name="faverite_UnSelected.png" width="70" height="70"/>
+        <image name="images (1).jpeg" width="168" height="299"/>
         <image name="notFound_Icon.png" width="200" height="200"/>
+        <image name="settings.png" width="200" height="200"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -1048,6 +1057,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Yz7-m7-pQ1"/>
+        <segue reference="Bye-ur-jxd"/>
     </inferredMetricsTieBreakers>
 </document>
