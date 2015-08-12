@@ -262,7 +262,6 @@
         [self dismissOptions];
         barbutton.selected=NO;
     }
-
 }
 - (IBAction)btnDisplay:(id)sender
 {

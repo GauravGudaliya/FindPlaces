@@ -103,8 +103,6 @@
     {
         _mapview.mapType=kGMSTypeTerrain;
     }
-    
-    
 }
 
 @end

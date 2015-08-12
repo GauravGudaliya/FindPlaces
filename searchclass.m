@@ -21,13 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    if ([_flag isEqual:@"0"]) {
-//        _txtPlaceSearch.hidden=YES;
-//    }
-//    else if([_flag isEqual:@"1"])
-//    {
-//        _txtPlaceSearch.hidden=NO;
-//    }
+
     _mapView.myLocationEnabled=YES;
     GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:_mapView.myLocation.coordinate zoom:10];
     _mapView.camera=camera;
@@ -62,10 +56,10 @@
     //Optional Properties
     _txtPlaceSearch.autoCompleteRegularFontName =  @"HelveticaNeue-Bold";
     _txtPlaceSearch.autoCompleteBoldFontName = @"HelveticaNeue";
-    _txtPlaceSearch.autoCompleteTableCornerRadius=0.0;
+    _txtPlaceSearch.autoCompleteTableCornerRadius=10;
     _txtPlaceSearch.autoCompleteRowHeight=35;
     _txtPlaceSearch.autoCompleteTableCellTextColor=[UIColor colorWithWhite:0.131 alpha:1.000];
-    _txtPlaceSearch.autoCompleteFontSize=14;
+    _txtPlaceSearch.autoCompleteFontSize=16;
     _txtPlaceSearch.autoCompleteTableBorderWidth=1.0;
     _txtPlaceSearch.showTextFieldDropShadowWhenAutoCompleteTableIsOpen=YES;
     _txtPlaceSearch.autoCompleteShouldHideOnSelection=YES;
@@ -135,8 +129,6 @@
         cell.contentView.backgroundColor = [UIColor whiteColor];
     }
 }
-
-
 - (IBAction)maptypeaction:(id)sender
 {
     

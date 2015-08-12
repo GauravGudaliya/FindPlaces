@@ -55,7 +55,7 @@
      didUpdateLocations:(NSArray *)locations
 {
     CLLocation *locat=[locations firstObject];
-    GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:locat.coordinate zoom:18];
+    GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:locat.coordinate zoom:15];
     _mapview.camera=camera;
     CLLocationCoordinate2D circleCenter = locat.coordinate;
     GMSCircle *circ = [GMSCircle circleWithPosition:circleCenter

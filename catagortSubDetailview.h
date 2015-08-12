@@ -20,4 +20,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblwebsite;
 @property(strong,nonatomic) CLLocation *location;
 @property(strong ,nonatomic) NSString *placeid;
+@property (weak, nonatomic) IBOutlet UIView *mainView;
+@property (weak, nonatomic) IBOutlet UIView *subView;
 @end

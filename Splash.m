@@ -9,6 +9,7 @@
 #import "Splash.h"
 #import "AppDelegate.h"
 @interface Splash ()
+@property (weak, nonatomic) IBOutlet UILabel *lblName;
 
 @end
 
@@ -19,6 +20,9 @@
     self.navigationController.navigationBar.hidden=YES;
     _lblname.text=[[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
      [[AppDelegate sharedInstance] showHUD];
+    
+
+    
   [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(Displaylist) userInfo:nil repeats:NO];
 }
 -(void)Displaylist
@@ -26,9 +30,10 @@
     [self performSegueWithIdentifier:@"catagory" sender:self];
     [[AppDelegate sharedInstance] hideHUD];
 }
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 
