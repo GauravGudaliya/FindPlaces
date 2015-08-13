@@ -23,7 +23,6 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    _navController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
     
     Reachability *reachibility=[Reachability reachabilityForInternetConnection];
     NetworkStatus status=[reachibility currentReachabilityStatus];
@@ -34,9 +33,11 @@
         alert.tag=001;
         [alert show];
     }
-
+    _navController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+    
     [self.navController setNavigationBarHidden:YES];
     [GMSServices provideAPIKey:APIKey];
+   
     return YES;
 }
 

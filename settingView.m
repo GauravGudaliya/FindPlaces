@@ -63,9 +63,6 @@
     {
         radioDefaultView.isOn = YES;
     }
-
-    
-    
     if (sender.tag==1)
     {
         NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];

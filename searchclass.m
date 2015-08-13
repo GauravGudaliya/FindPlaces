@@ -144,11 +144,6 @@
     {
         _mapView.mapType=kGMSTypeHybrid;
     }
-    else if (_maptype.selectedSegmentIndex==3)
-    {
-        _mapView.mapType=kGMSTypeTerrain;
-    }
-   
     
 }
 @end

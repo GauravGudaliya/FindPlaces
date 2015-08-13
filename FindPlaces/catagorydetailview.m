@@ -32,7 +32,9 @@
     [barbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     [barbutton addTarget:self action:@selector(changeradius) forControlEvents:UIControlEventTouchUpInside];
-    [barbutton setTitle:@"Option" forState:UIControlStateNormal];
+    [barbutton setTitle:@"Radius" forState:UIControlStateNormal];
+    [barbutton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    barbutton.titleLabel.font=[UIFont boldSystemFontOfSize:18];
     UIBarButtonItem *Leftbarbutton=[[UIBarButtonItem alloc]initWithCustomView:barbutton];
     
     self.navigationItem.rightBarButtonItem=Leftbarbutton;

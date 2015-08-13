@@ -59,7 +59,7 @@
      didUpdateLocations:(NSArray *)locations
 {
     CLLocation *locat=[locations firstObject];
-    GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:locat.coordinate zoom:18];
+    GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:locat.coordinate zoom:15];
     _mapview.camera=camera;
     CLLocationCoordinate2D circleCenter = locat.coordinate;
     GMSCircle *circ = [GMSCircle circleWithPosition:circleCenter
@@ -98,10 +98,6 @@
     else if (_maptype.selectedSegmentIndex==2)
     {
         _mapview.mapType=kGMSTypeHybrid;
-    }
-    else if (_maptype.selectedSegmentIndex==3)
-    {
-        _mapview.mapType=kGMSTypeTerrain;
     }
 }
 

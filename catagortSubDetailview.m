@@ -29,9 +29,10 @@
     [barbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     [barbutton addTarget:self action:@selector(btntypeAction) forControlEvents:UIControlEventTouchUpInside];
-    [barbutton setTitle:@"Share" forState:UIControlStateNormal];
-    UIBarButtonItem *Leftbarbutton=[[UIBarButtonItem alloc]initWithCustomView:barbutton];
-    
+        UIBarButtonItem *Leftbarbutton=[[UIBarButtonItem alloc]initWithCustomView:barbutton];
+    [barbutton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    barbutton.titleLabel.font=[UIFont boldSystemFontOfSize:18];
+    [barbutton setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem= Leftbarbutton;
      _mainView.hidden=YES;
 }

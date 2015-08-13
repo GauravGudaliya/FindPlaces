@@ -142,10 +142,12 @@
     [barbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     [barbutton addTarget:self action:@selector(btntypeAction) forControlEvents:UIControlEventTouchUpInside];
-    [barbutton setTitle:@"Option" forState:UIControlStateNormal];
+    [barbutton setImage:[UIImage imageNamed:@"option"] forState:UIControlStateNormal];
+    
     UIBarButtonItem *Leftbarbutton=[[UIBarButtonItem alloc]initWithCustomView:barbutton];
     
     self.navigationItem.rightBarButtonItem=Leftbarbutton;
+    
     _mainView.hidden=YES;
     
     
@@ -153,19 +155,26 @@
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"List"])
     {
        _actioncatagory.selected=NO;
+        _colview.hidden=YES;
     }
     else if([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"Grid"])
     {
         _actioncatagory.selected=YES;
+        _tabview.hidden=YES;
     }
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [[self navigationController].navigationBar setBarTintColor:[UIColor cyanColor]];
+    [[self navigationController].navigationBar setTintColor:[UIColor whiteColor]];
+
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  
 }
-
-
+#pragma mark - CollectionView deleget
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return typeArr.count;
@@ -178,6 +187,10 @@
     image.clipsToBounds=YES;
     UILabel *lbl=(UILabel *)[cell1 viewWithTag:100];
     lbl.text=[[[typeArr objectAtIndex:indexPath.row] capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+    lbl.layer.cornerRadius=10;
+    
+    [cell1.contentView.layer setBorderColor:[UIColor blackColor].CGColor];
+    [cell1.contentView.layer setBorderWidth:1];
 
     return cell1;
     
@@ -222,6 +235,7 @@
     UITableViewCell *cell1=[tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     UIImageView *image=(UIImageView*)[cell1 viewWithTag:200];
     image.image=[UIImage imageNamed:[typeArr objectAtIndex:indexPath.row]];
+    image.layer.cornerRadius=10;
     image.clipsToBounds=YES;
 
     UILabel *lbl=(UILabel *)[cell1 viewWithTag:201];
