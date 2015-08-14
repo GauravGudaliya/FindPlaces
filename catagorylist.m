@@ -14,6 +14,7 @@
 {
     UIButton *barbutton;
     UIView *display;
+   
 }
 @property (strong, nonatomic) IBOutlet UIBarButtonItem *selectDrower;
 
@@ -165,9 +166,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    [[self navigationController].navigationBar setBarTintColor:[UIColor cyanColor]];
-    [[self navigationController].navigationBar setTintColor:[UIColor whiteColor]];
-
+    [[self navigationController].navigationBar setBarTintColor:[UIColor colorWithRed:0.2 green:1 blue:1 alpha:0.5]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -187,11 +186,7 @@
     image.clipsToBounds=YES;
     UILabel *lbl=(UILabel *)[cell1 viewWithTag:100];
     lbl.text=[[[typeArr objectAtIndex:indexPath.row] capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-    lbl.layer.cornerRadius=10;
-    
-    [cell1.contentView.layer setBorderColor:[UIColor blackColor].CGColor];
-    [cell1.contentView.layer setBorderWidth:1];
-
+    cell1.layer.cornerRadius=10;
     return cell1;
     
 }
@@ -240,6 +235,11 @@
 
     UILabel *lbl=(UILabel *)[cell1 viewWithTag:201];
     lbl.text=[[[typeArr objectAtIndex:indexPath.row] capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+    UIView *view=(UIView *)[cell1 viewWithTag:11];
+    
+    view.layer.cornerRadius=10;
+   
+  
     return cell1;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -261,7 +261,7 @@
         Catagorydetailview.type=_type;
     
         Catagorydetailview.row=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
-      
+        
     }
 }
 - (IBAction)btntypeAction

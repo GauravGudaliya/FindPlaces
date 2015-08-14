@@ -61,6 +61,7 @@
     _sliderRdiuse.value=[[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"] integerValue];
     _txtRdius.text=[NSString stringWithFormat:@"%d km",(int)_sliderRdiuse.value];
     _subView.layer.cornerRadius=5;
+   
 }
 - (void)didReceiveMemoryWarning
 {
@@ -115,11 +116,13 @@
     lblcity.text=[arr lastObject];
   
     UIImageView *imgicon=(UIImageView *)[cell1 viewWithTag:105];
-
+    UIView *view=(UIView*)[cell1 viewWithTag:22];
+    view.layer.cornerRadius=10;
+    
     NSURL *imageUrl = [NSURL URLWithString:[[placesArr objectAtIndex:indexPath.row]objectForKey:@"icon"]];
     NSData *imageData = [NSData dataWithContentsOfURL:imageUrl];
     imgicon.image = [UIImage imageWithData:imageData];
-  
+    
     
     return  cell1;
 }

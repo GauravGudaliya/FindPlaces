@@ -34,6 +34,8 @@
         [alert show];
     }
     _navController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.2 green:1 blue:1 alpha:0.5]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
     [self.navController setNavigationBarHidden:YES];
     [GMSServices provideAPIKey:APIKey];

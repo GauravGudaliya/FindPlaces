@@ -35,6 +35,13 @@
     [barbutton setImage:[UIImage imageNamed:@"share"] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem= Leftbarbutton;
      _mainView.hidden=YES;
+    _backGoundView.layer.cornerRadius=10;
+    _backGroundView1.layer.cornerRadius=10;
+    _backGoundView2.layer.cornerRadius=10;
+    _backGoundView3.layer.cornerRadius=10;
+    _backGroundView4.layer.cornerRadius=10;
+    _backGroundView4.myLocationEnabled=YES;
+    
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -44,39 +51,25 @@
     [aUrlRequst setHTTPMethod:@"GET"];
     [aUrlRequst setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    NSURLConnection *aconnection=[NSURLConnection connectionWithRequest:aUrlRequst delegate:self];
-    if (aconnection) {
-        webdata=[NSMutableData data];
-    }
-    else
-    {
-        NSLog(@"Connection is Fail");
-    }
+    [NSURLConnection sendAsynchronousRequest:aUrlRequst queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        NSDictionary *aDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+        results=[aDict objectForKey:@"result"];
+        _lbladdress.text=[results objectForKey:@"formatted_address"];
+        _lblwebsite.text=[results objectForKey:@"url"];
+        _lblcontact.text=[results objectForKey:@"name"];
+        _lblopne.text=[[[results objectForKey:@"opening_hours"] objectForKey:@"weekday_text"]objectAtIndex:0 ];
+        
+        GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:CLLocationCoordinate2DMake([[[[results objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"]doubleValue], [[[[results objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"]doubleValue]) zoom:13];
+        _backGroundView4.camera=camera;
+        
+        GMSMarker *marker=[GMSMarker markerWithPosition:CLLocationCoordinate2DMake([[[[results objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"]doubleValue], [[[[results objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"]doubleValue])];
+        marker.map=_backGroundView4;
+        marker.title=[results objectForKey:@"name"];
+    }];
+
 }
-- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
-    
-}
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
-    [webdata appendData:data];
-}
-- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
-    NSLog(@"%@",error.description);
-}
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
-    
-    NSMutableDictionary *result=[NSJSONSerialization JSONObjectWithData:webdata options:NSJSONReadingMutableContainers error:nil];
-    results=[result objectForKey:@"result"];
-    _lbladdress.text=[results objectForKey:@"formatted_address"];
-    _lblwebsite.text=[results objectForKey:@"url"];
-    _lblcontact.text=[results objectForKey:@"name"];
-   
-    
-    _lblopne.text=[[[results objectForKey:@"opening_hours"] objectForKey:@"weekday_text"]objectAtIndex:0 ];
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
    

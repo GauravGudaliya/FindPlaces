@@ -21,12 +21,8 @@
    
   
     UIBarButtonItem *Back = [[UIBarButtonItem alloc]initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:self action:@selector(selectorBack)];
-    
     self.navigationItem.leftBarButtonItem= Back;
     
-    UIBarButtonItem *List = [[UIBarButtonItem alloc]initWithTitle:@"List" style:UIBarButtonItemStyleDone target:self action:@selector(selectorList)];
-    
-    self.navigationItem.rightBarButtonItem= List;
      _mapview.myLocationEnabled=YES;
     locationManger=[[CLLocationManager alloc]init];
     locationManger.delegate=self;
@@ -74,14 +70,6 @@
 -(void)selectorBack
 {
     [self.navigationController popViewControllerAnimated:YES];
-    
-}
--(void)selectorList
-{
-    [self.navigationController popViewControllerAnimated:YES];
-    
-//    catagorydetailview *Catagorydetailview=[self.storyboard instantiateViewControllerWithIdentifier:@"catagoryDetailviewSegue"];
-//    [self.navigationController pushViewController:Catagorydetailview animated:YES];
     
 }
 - (IBAction)maptypeaction:(id)sender

@@ -23,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title=@"Settings";
        SWRevealViewController *revealViewController = self.revealViewController;
     if ( revealViewController )
     {
@@ -43,7 +44,7 @@
     }
     _sliderRdiuse.value=[[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"] integerValue];
     _txtRdius.text=[NSString stringWithFormat:@"%d km",(int)_sliderRdiuse.value];
-    
+  
 }
 
 - (void)didReceiveMemoryWarning

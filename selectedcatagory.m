@@ -65,6 +65,8 @@
     NSMutableDictionary *aMutDict = [typeArr objectAtIndex:indexPath.row];
     
     NSString *aStrCategoryName = aMutDict[@"category"];
+    UIView *view=(UIView*)[cell1 viewWithTag:33];
+    view.layer.cornerRadius=10;
     BOOL isSelected = [aMutDict[@"isSelected"] boolValue];
     
     lblname.text=[[aStrCategoryName capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];

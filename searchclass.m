@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
+        self.title=@"Search";
     _mapView.myLocationEnabled=YES;
     GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:_mapView.myLocation.coordinate zoom:10];
     _mapView.camera=camera;
@@ -41,6 +41,7 @@
     }
     _mapView.settings.myLocationButton=YES;
     _mapView.settings.compassButton=YES;
+
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
