@@ -29,10 +29,9 @@
     [aTempArr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
         NSString *aStrCate = obj;
         [self addCategoryDictFor:aStrCate toArr:typeArr];
-//        [[Database sharedDatabase]Insert:[NSString stringWithFormat:@"insert into favorite (catagoryname,state,imagename)values('%@','%@','%@')",aStrCate,@0,[NSString stringWithFormat:@"pin_%@",aStrCate]]];
-//        
+   
     }];
-    
+    [[self navigationController].navigationBar setBarTintColor:[UIColor colorWithRed:0 green:0.74 blue:0.83 alpha:0.5]];
 }
 
 -(void)addCategoryDictFor:(NSString*)strCateGory toArr:(NSMutableArray*)mutArr

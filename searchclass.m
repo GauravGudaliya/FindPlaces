@@ -41,6 +41,7 @@
     }
     _mapView.settings.myLocationButton=YES;
     _mapView.settings.compassButton=YES;
+    [[self navigationController].navigationBar setBarTintColor:[UIColor colorWithRed:0 green:0.74 blue:0.83 alpha:0.5]];
 
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{

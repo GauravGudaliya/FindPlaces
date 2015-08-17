@@ -15,5 +15,9 @@
 - (IBAction)displaynameAction:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextField *txtusername;
 - (IBAction)sliderradiusAction:(id)sender;
-
+@property (weak, nonatomic) IBOutlet UIView *backgroundView;
+@property (weak, nonatomic) IBOutlet UIView *backgroundView1;
+@property (weak, nonatomic) IBOutlet UIView *backgroundView2;
+@property (weak, nonatomic) IBOutlet UIView *backgroundView3;
+@property (weak, nonatomic) IBOutlet UIView *backgroundView4;
 @end

@@ -44,7 +44,15 @@
     }
     _sliderRdiuse.value=[[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"] integerValue];
     _txtRdius.text=[NSString stringWithFormat:@"%d km",(int)_sliderRdiuse.value];
-  
+ 
+    [[self navigationController].navigationBar setBarTintColor:[UIColor colorWithRed:0 green:0.74 blue:0.83 alpha:0.5]];
+    _backgroundView.layer.cornerRadius=10;
+    _backgroundView1.layer.cornerRadius=10;
+    _backgroundView2.layer.cornerRadius=10;
+    _backgroundView3.layer.cornerRadius=10;
+    _backgroundView4.layer.cornerRadius=10;
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -88,6 +96,18 @@
 - (IBAction)radioMap:(MVRadioButton*)sender
 {
     sender.isOn=!sender.isOn;
+    if (sender.tag==3)
+    {
+        NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"google"forKey:@"maptype"];
+        [defaults synchronize];
+    }
+    else if(sender.tag==4)
+    {
+        NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+        [defaults setObject:@"apple"forKey:@"maptype"];
+        [defaults synchronize];
+    }
     if(sender!=radioDefaultView1){
         radioDefaultView1.isOn = NO;
     }

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <GoogleMaps/GoogleMaps.h>
+#import <MapKit/MapKit.h>
 @interface catagoryDetailviewmap : UIViewController<CLLocationManagerDelegate>
 {
     NSMutableArray *alocation;
@@ -17,5 +18,6 @@
 @property (weak, nonatomic) IBOutlet GMSMapView *mapview;
 - (IBAction)maptypeaction:(id)sender;
 @property(strong,nonatomic)NSMutableArray *adata;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @end

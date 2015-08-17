@@ -166,7 +166,7 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    [[self navigationController].navigationBar setBarTintColor:[UIColor colorWithRed:0.2 green:1 blue:1 alpha:0.5]];
+    [[self navigationController].navigationBar setBarTintColor:[UIColor colorWithRed:0 green:0.74 blue:0.83 alpha:0.5]];
 }
 
 - (void)didReceiveMemoryWarning {

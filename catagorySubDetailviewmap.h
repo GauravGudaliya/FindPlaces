@@ -13,6 +13,8 @@
 @interface catagorySubDetailviewmap : UIViewController<MKMapViewDelegate,CLLocationManagerDelegate>
 {
        CLLocationManager *locationManger;
+    CLLocationCoordinate2D sourceCord;
+    CLLocationCoordinate2D destCord;
    
 }
 @property (weak, nonatomic) IBOutlet UISegmentedControl *maptype;
@@ -21,5 +23,6 @@
 @property(strong,nonatomic)NSString *longitude;
 @property(strong,nonatomic)NSString *latitude;
 @property(strong,nonatomic)NSMutableDictionary *result;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property(strong,nonatomic)CLLocation *loca;
 @end
