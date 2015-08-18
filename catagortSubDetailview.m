@@ -13,19 +13,25 @@
 @interface catagortSubDetailview ()
 {
     UIButton *barbutton;
+    UIButton *rightbarbutton;
 }
 @end
 
 @implementation catagortSubDetailview
-
+#pragma mark
+#pragma mark-Initialization
 - (void)viewDidLoad {
     [super viewDidLoad];
     results=[[NSMutableDictionary alloc]init];
-    UIBarButtonItem *Back = [[UIBarButtonItem alloc]initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:self action:@selector(selectorBack)];
-   
-    self.navigationItem.leftBarButtonItem= Back;
     
-    barbutton=[[UIButton alloc]initWithFrame:CGRectMake(250, 20,70 ,20)];
+    rightbarbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0,35 ,35)];
+    [rightbarbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [rightbarbutton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [rightbarbutton addTarget:self action:@selector(selectorBack) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:rightbarbutton];
+    
+    barbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0,35 ,35)];
+    barbutton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     [barbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
     [barbutton addTarget:self action:@selector(btntypeAction) forControlEvents:UIControlEventTouchUpInside];
@@ -78,6 +84,8 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+#pragma mark
+#pragma mark-Select Map Action
 - (IBAction)displayMap:(id)sender
 {
     catagorySubDetailviewmap *Catagorydetailviewmap=[self.storyboard instantiateViewControllerWithIdentifier:@"catagortSubDetailviewmap"];
@@ -87,10 +95,14 @@
     [self.navigationController pushViewController:Catagorydetailviewmap animated:YES];
     
 }
+#pragma mark
+#pragma mark-Redirect WebView
 - (IBAction)redirectWeb:(id)sender
 {
     [[UIApplication sharedApplication]openURL:[NSURL URLWithString:[results objectForKey:@"url"]]];
 }
+#pragma mark
+#pragma mark-FBshare Action
 - (IBAction)FBshare:(id)sender
 {
      [self dismissOptions];
@@ -118,6 +130,8 @@
         [aUIAlert show];
     }
 }
+#pragma mark
+#pragma mark-TWShare Action
 -(IBAction)TWShare:(id)sender
 {
      [self dismissOptions];
@@ -155,13 +169,16 @@
         barbutton.selected=NO;
     }
 }
+#pragma mark
+#pragma mark-TextField Delegets
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self dismissOptions];
     barbutton.selected=NO;
     
 }
-
+#pragma mark
+#pragma mark- Bar Button Action
 -(void)presentOptions{
     _mainView.hidden = NO;
     _mainView.backgroundColor = [UIColor clearColor];

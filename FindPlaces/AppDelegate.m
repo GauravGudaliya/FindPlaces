@@ -24,6 +24,19 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [[UINavigationBar appearance] setTitleTextAttributes:
+     [NSDictionary dictionaryWithObjectsAndKeys:
+      [UIColor whiteColor],
+      NSForegroundColorAttributeName,
+      [UIColor whiteColor],
+      NSForegroundColorAttributeName,
+      [NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
+      NSForegroundColorAttributeName,
+      [UIFont fontWithName:@"Helvetica Neue-Bold" size:20],
+      NSFontAttributeName,
+      nil]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    
     Reachability *reachibility=[Reachability reachabilityForInternetConnection];
     NetworkStatus status=[reachibility currentReachabilityStatus];
     [reachibility startNotifier];

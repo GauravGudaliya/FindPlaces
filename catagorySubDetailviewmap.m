@@ -9,15 +9,17 @@
 #import "catagorySubDetailviewmap.h"
 #import "catagorydetailview.h"
 #import <Foundation/Foundation.h>
+
 @interface catagorySubDetailviewmap ()
 {
     CLLocationManager *location;
-    
+    UIButton *rightbarbutton;
 }
 @end
 
 @implementation catagorySubDetailviewmap
-
+#pragma mark
+#pragma mark-Initialization
 - (void)viewDidLoad {
     [super viewDidLoad];
     _mapview.myLocationEnabled=YES;
@@ -29,13 +31,12 @@
     }
     [locationManger startUpdatingLocation];
     
-    UIBarButtonItem *Back = [[UIBarButtonItem alloc]initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:self action:@selector(selectorBack)];
+    rightbarbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0,35 ,35)];
+    [rightbarbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [rightbarbutton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [rightbarbutton addTarget:self action:@selector(selectorBack) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:rightbarbutton];
     
-    self.navigationItem.leftBarButtonItem= Back;
-    
-    UIBarButtonItem *List = [[UIBarButtonItem alloc]initWithTitle:@"List" style:UIBarButtonItemStyleDone target:self action:@selector(selectorList)];
-    
-    self.navigationItem.rightBarButtonItem= List;
     _latitude=[[[_result objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"];
     _longitude=[[[_result objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"];
     
@@ -47,6 +48,7 @@
         marker.icon=[UIImage imageNamed:[NSString stringWithFormat:@"pin_%@",[[_result objectForKey:@"types"] objectAtIndex:0]]];
         _mapview.myLocationEnabled=YES;
         marker.map=_mapview;
+        marker.title=[_result objectForKey:@"name"];
         [self droepath:CLLocationCoordinate2DMake(locationManger.location.coordinate.latitude, locationManger.location.coordinate.longitude) :CLLocationCoordinate2DMake([_latitude doubleValue], [_longitude doubleValue])];
         _mapview.settings.myLocationButton=YES;
         _mapview.settings.compassButton=YES;
@@ -66,9 +68,16 @@
         [_mapView addAnnotation:pinAnotation];
 
          [self getTheDirections];
+        [[AppDelegate sharedInstance] showHUD];
     }
 
 }
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+#pragma mark-
+#pragma mark-Apple MAP Methods
 - (void)makeMapInCenter
 {
     CLLocationCoordinate2D currentCord = locationManger.location.coordinate;
@@ -99,6 +108,7 @@
         MKDirections *aDirections = [[MKDirections alloc] initWithRequest:aDirectReq];
         
         [aDirections calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+            [[AppDelegate sharedInstance] hideHUD];
             if (error) {
                 NSLog(@"Error :: %@",error);
             }
@@ -146,7 +156,6 @@
             
             aPolyLineRenderer.strokeColor = [UIColor redColor];
             aPolyLineRenderer.lineWidth = 3.0;
-            
             return aPolyLineRenderer;
         }
     }
@@ -157,19 +166,21 @@
         
     }
 }
+#pragma mark-
+#pragma mark-CLLocationManager delegets
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations
 {
-
+    CLLocation *locat=[locations firstObject];
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"maptype"] isEqualToString:@"google"])
     {
-        CLLocation *locat=[locations firstObject];
+        
         GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:locat.coordinate zoom:15];
         _mapview.camera=camera;
         CLLocationCoordinate2D circleCenter = locat.coordinate;
         GMSCircle *circ = [GMSCircle circleWithPosition:circleCenter
                                                  radius:[[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"] integerValue]];
-        circ.fillColor = [UIColor colorWithRed:0 green:0 blue:0.25 alpha:0.25];
+        circ.fillColor = [UIColor colorWithRed:0 green:0 blue:0.25 alpha:0.15];
         circ.strokeColor = [UIColor blueColor];
         circ.strokeWidth = 5;
         circ.map = _mapview;
@@ -178,12 +189,10 @@
     {
         
     }
-
-    
-    
     [locationManger stopUpdatingLocation];
 }
-
+#pragma mark-
+#pragma mark-Google map Methods
 -(void)droepath:(CLLocationCoordinate2D)fromlocation :(CLLocationCoordinate2D)tolocation
 {
     NSString *baseUrl = [NSString stringWithFormat:@"http://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&sensor=true", fromlocation.latitude,  fromlocation.longitude, tolocation.latitude,  tolocation.longitude];
@@ -206,13 +215,8 @@
         polyLine.map= _mapview;
     }];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
+#pragma mark
+#pragma  mark-Segment Control Methods
 - (IBAction)maptypeaction:(id)sender
 {
     
@@ -232,13 +236,7 @@
 }
 -(void)selectorBack
 {
-    [self.navigationController popViewControllerAnimated:YES];
-    
-}
--(void)selectorList
-{
-    [self.navigationController popViewControllerAnimated:YES];
-    
+    [self.navigationController popViewControllerAnimated:YES];    
 }
 
 @end

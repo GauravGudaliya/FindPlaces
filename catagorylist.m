@@ -21,7 +21,8 @@
 @end
 
 @implementation catagorylist
-
+#pragma mark
+#pragma mark-Initialization
 - (void)viewDidLoad {
     [super viewDidLoad];
     // self.navigationController.navigationBar.hidden=NO;
@@ -139,9 +140,9 @@
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     }
 
-    barbutton=[[UIButton alloc]initWithFrame:CGRectMake(250, 20,70 ,20)];
+    barbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0,35 ,35)];
+    barbutton.imageEdgeInsets = UIEdgeInsetsMake(5, 5, 5, 5);
     [barbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
     [barbutton addTarget:self action:@selector(btntypeAction) forControlEvents:UIControlEventTouchUpInside];
     [barbutton setImage:[UIImage imageNamed:@"option"] forState:UIControlStateNormal];
     
@@ -155,24 +156,24 @@
     typeArr=[[NSMutableArray alloc]initWithArray:allTypearr];
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"List"])
     {
-       _actioncatagory.selected=NO;
         _colview.hidden=YES;
     }
     else if([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"Grid"])
     {
-        _actioncatagory.selected=YES;
         _tabview.hidden=YES;
     }
 }
 -(void)viewWillAppear:(BOOL)animated
 {
     [[self navigationController].navigationBar setBarTintColor:[UIColor colorWithRed:0 green:0.74 blue:0.83 alpha:0.5]];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
   
 }
+#pragma mark
 #pragma mark - CollectionView deleget
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -212,7 +213,8 @@
        
     }
 }
-
+#pragma mark
+#pragma mark-CLLocationManager Delegets
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations
 {
@@ -220,6 +222,7 @@
     _latitude=[NSString stringWithFormat:@"%f",location.coordinate.latitude];
     _longitude=[NSString stringWithFormat:@"%f",location.coordinate.longitude];
 }
+#pragma mark
 #pragma mark -Table View Deleget
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -264,8 +267,19 @@
         
     }
 }
+#pragma mark
+#pragma mark- Bar Button Action
 - (IBAction)btntypeAction
 {
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"List"])
+    {
+        _actioncatagory.selected=!_actioncatagory.selected;
+    }
+    else if([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"Grid"])
+    {
+        _actioncatagory.selected=NO;
+    }
+
     if (barbutton.selected == NO)
     {
         [self presentOptions];
@@ -277,6 +291,30 @@
         barbutton.selected=NO;
     }
 }
+-(void)presentOptions{
+    _mainView.hidden = NO;
+    _mainView.backgroundColor = [UIColor clearColor];
+    _subView.transform = CGAffineTransformTranslate(_subView.transform, 0, -_subView.frame.size.height);
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        _mainView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
+        _subView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+-(void)dismissOptions{
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        _subView.transform = CGAffineTransformTranslate(_mainView.transform, 0.0, -_subView.frame.size.height);
+        _mainView.backgroundColor = [UIColor clearColor];
+    } completion:^(BOOL finished) {
+        _mainView.hidden =  YES;
+    }];
+    
+}
+#pragma mark
+#pragma mark-Sub View Option Button Action
 - (IBAction)btnDisplay:(id)sender
 {
     if(_actionDisplay.selected)
@@ -318,6 +356,8 @@
           [_colview reloadData];
     }
 }
+#pragma mark
+#pragma mark-TextField Delegets
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self dismissOptions];
@@ -325,26 +365,4 @@
     
 }
 
--(void)presentOptions{
-    _mainView.hidden = NO;
-    _mainView.backgroundColor = [UIColor clearColor];
-    _subView.transform = CGAffineTransformTranslate(_subView.transform, 0, -_subView.frame.size.height);
-    
-    [UIView animateWithDuration:0.4 animations:^{
-        _mainView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.5];
-        _subView.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL finished) {
-        
-    }];
-}
--(void)dismissOptions{
-
-    [UIView animateWithDuration:0.4 animations:^{
-        _subView.transform = CGAffineTransformTranslate(_mainView.transform, 0.0, -_subView.frame.size.height);
-        _mainView.backgroundColor = [UIColor clearColor];
-    } completion:^(BOOL finished) {
-        _mainView.hidden =  YES;
-    }];
-
-}
 @end

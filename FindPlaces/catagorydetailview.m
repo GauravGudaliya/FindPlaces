@@ -14,28 +14,30 @@
 @interface catagorydetailview ()<UIAlertViewDelegate>
 {
     NSString *radius;
-    UIButton *barbutton;
+    UIButton *leftbarbutton;
+    UIButton *rightbarbutton;
 }
 @end
 
 @implementation catagorydetailview
-
+#pragma mark
+#pragma mark-Initialization
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     result=[[NSMutableDictionary alloc]init];
-    UIBarButtonItem *Back = [[UIBarButtonItem alloc]initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:self action:@selector(selectorBack)];
     
-    self.navigationItem.leftBarButtonItem= Back;
+    rightbarbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0,35 ,35)];
+    [rightbarbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [rightbarbutton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [rightbarbutton addTarget:self action:@selector(selectorBack) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:rightbarbutton];
     
-    barbutton=[[UIButton alloc]initWithFrame:CGRectMake(250, 20,70 ,20)];
-    [barbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
-    [barbutton addTarget:self action:@selector(changeradius) forControlEvents:UIControlEventTouchUpInside];
-    [barbutton setTitle:@"Radius" forState:UIControlStateNormal];
-    [barbutton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    barbutton.titleLabel.font=[UIFont boldSystemFontOfSize:18];
-    UIBarButtonItem *Leftbarbutton=[[UIBarButtonItem alloc]initWithCustomView:barbutton];
+    leftbarbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0,35 ,35)];
+    [leftbarbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [leftbarbutton setImage:[UIImage imageNamed:@"radius"] forState:UIControlStateNormal];
+    [leftbarbutton addTarget:self action:@selector(changeradius) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *Leftbarbutton=[[UIBarButtonItem alloc]initWithCustomView:leftbarbutton];
     
     self.navigationItem.rightBarButtonItem=Leftbarbutton;
     radius=[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"];
@@ -63,6 +65,8 @@
     _subView.layer.cornerRadius=5;
    
 }
+#pragma mark
+#pragma mark-Connection Delegets
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -95,8 +99,9 @@
         _notFoundicon.hidden=NO;
     }
     
-   }
-
+}
+#pragma mark
+#pragma mark-TableView Delegets
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return placesArr.count;
@@ -141,11 +146,25 @@
     [self.navigationController popViewControllerAnimated:YES];
     
 }
+#pragma mark
+#pragma mark-Change Radius Method
 -(void)changeradius
 {
     _mainView.hidden=NO;
-    barbutton.selected=NO;
+    leftbarbutton.selected=NO;
 }
+- (IBAction)actionRadius:(id)sender
+{
+    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+    [defaults setObject:[NSString stringWithFormat:@"%f",_sliderRdiuse.value]  forKey:@"rediusvalue"];
+    [defaults synchronize];
+    _mainView.hidden=YES;
+    leftbarbutton.selected=NO;
+    [self viewDidLoad];
+}
+
+#pragma mark
+#pragma mark-TextField Delegets
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [_txtRdius resignFirstResponder];
@@ -160,6 +179,9 @@
     [textField resignFirstResponder];
     return YES;
 }
+#pragma mark
+#pragma mark-Select Map Action Method
+
 - (IBAction)selectmap:(id)sender
 {
     catagoryDetailviewmap *Catagorydetailviewmap=[self.storyboard instantiateViewControllerWithIdentifier:@"catagoryDetailviewmap"];
@@ -167,7 +189,8 @@
     Catagorydetailviewmap.adata=placesArr;
     [self.navigationController pushViewController:Catagorydetailviewmap animated:YES];
 }
-
+#pragma mark
+#pragma mark-Alert View Delegets
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if(alertView.tag==10)
@@ -178,6 +201,8 @@
         }
     }
 }
+#pragma mark
+#pragma mark-Slider Methods
 - (IBAction)sliderradiusAction:(id)sender
 {
     _txtRdius.text=[NSString stringWithFormat:@"%d km",(int)_sliderRdiuse.value];
@@ -195,14 +220,5 @@
         [alert show];
         _txtRdius.text=[NSString stringWithFormat:@"%d km",(int)_sliderRdiuse.value];
     }
-}
-- (IBAction)actionRadius:(id)sender
-{
-    NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
-    [defaults setObject:[NSString stringWithFormat:@"%f",_sliderRdiuse.value]  forKey:@"rediusvalue"];
-    [defaults synchronize];
-    _mainView.hidden=YES;
-    barbutton.selected=NO;
-    [self viewDidLoad];
 }
 @end

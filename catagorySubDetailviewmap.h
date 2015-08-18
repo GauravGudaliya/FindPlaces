@@ -10,6 +10,7 @@
 #import <MapKit/MapKit.h>
 #import <GoogleMaps/GoogleMaps.h>
 #import <CoreLocation/CoreLocation.h>
+#import "AppDelegate.h"
 @interface catagorySubDetailviewmap : UIViewController<MKMapViewDelegate,CLLocationManagerDelegate>
 {
        CLLocationManager *locationManger;

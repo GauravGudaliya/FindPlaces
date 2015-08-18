@@ -17,7 +17,8 @@
 @end
 
 @implementation searchclass
-
+#pragma mark
+#pragma mark-Initialization
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -44,10 +45,6 @@
     [[self navigationController].navigationBar setBarTintColor:[UIColor colorWithRed:0 green:0.74 blue:0.83 alpha:0.5]];
 
 }
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [textField resignFirstResponder];
-    return YES;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -69,6 +66,8 @@
     _txtPlaceSearch.autoCompleteShouldSelectOnExactMatchAutomatically = YES;
     _txtPlaceSearch.autoCompleteTableFrame = CGRectMake((self.view.frame.size.width-_txtPlaceSearch.frame.size.width)*0.5, _txtPlaceSearch.frame.size.height+100.0, _txtPlaceSearch.frame.size.width, 200.0);
 }
+#pragma mark
+#pragma mark-TextField Delegets Methods
 -(void)placeSearchResponseForSelectedPlace:(NSMutableDictionary*)responseDict
 {
     [self.view endEditing:YES];
@@ -116,6 +115,11 @@
     }];
     
 }
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+
 -(void)placeSearchWillShowResult
 {
     
@@ -131,6 +135,7 @@
         cell.contentView.backgroundColor = [UIColor whiteColor];
     }
 }
+#pragma mark-Segment Control Methods
 - (IBAction)maptypeaction:(id)sender
 {
     

@@ -43,6 +43,7 @@
     _knobColor = knobColor;
     if(knob){
         knob.backgroundColor =  knobColor.CGColor;
+       
     }
     if(_lblTitle){
         _lblTitle.textColor =  _knobColor;

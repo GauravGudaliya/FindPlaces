@@ -32,6 +32,26 @@
         [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     }
     _txtusername.hidden=YES;
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"List"])
+    {
+        _radioList.isOn=YES;
+        radioDefaultView=_radioList;
+    }
+    else if([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"Grid"])
+    {
+        _radioGrid.isOn=YES;
+        radioDefaultView=_radioGrid;
+    }
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"maptype"] isEqualToString:@"google"])
+    {
+        _radioGoogle.isOn=YES;
+        radioDefaultView1=_radioGoogle;
+    }
+    else if([[[NSUserDefaults standardUserDefaults]objectForKey:@"maptype"] isEqualToString:@"apple"])
+    {
+        _radioApple.isOn=YES;
+        radioDefaultView1=_radioApple;
+    }
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"usernamestatus"]isEqualToString:@"yes"])
     {
         _displayname.on=YES;
@@ -51,8 +71,6 @@
     _backgroundView2.layer.cornerRadius=10;
     _backgroundView3.layer.cornerRadius=10;
     _backgroundView4.layer.cornerRadius=10;
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,18 +78,10 @@
     [super didReceiveMemoryWarning];
     
 }
-
-#pragma mark -  Default View
+#pragma mark
+#pragma mark - Radio Button Display type View
 - (IBAction)radioGrid:(MVRadioButton *)sender
 {
-    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"List"])
-    {
-      radioDefaultView.isOn = NO;
-    }
-    else if([[[NSUserDefaults standardUserDefaults]objectForKey:@"displaytype"] isEqualToString:@"Grid"])
-    {
-        radioDefaultView.isOn = YES;
-    }
     if (sender.tag==1)
     {
         NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
@@ -92,10 +102,11 @@
     radioDefaultView.isOn = YES;
     
 }
-
+#pragma mark
+#pragma mark - Radio Button Display type View
 - (IBAction)radioMap:(MVRadioButton*)sender
 {
-    sender.isOn=!sender.isOn;
+   
     if (sender.tag==3)
     {
         NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
@@ -114,7 +125,8 @@
     radioDefaultView1 =  sender;
     radioDefaultView1.isOn = YES;
 }
-
+#pragma mark
+#pragma mark -TextFields Delegets
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     [self saveUserName];
@@ -144,6 +156,8 @@
     [defaults synchronize];
 
 }
+#pragma mark
+#pragma mark - Change Radius Method
 -(void)radiusvalue
 {
     if (-1 < _sliderRdiuse.value &&[_txtRdius.text integerValue] <1001)
@@ -161,6 +175,14 @@
       _txtRdius.text=[NSString stringWithFormat:@"%d km" ,(int)_sliderRdiuse.value];
     }
 }
+- (IBAction)sliderradiusAction:(id)sender
+{
+    _txtRdius.text=[NSString stringWithFormat:@"%d km",(int)_sliderRdiuse.value];
+    [self radiusvalue];
+    
+}
+#pragma mark
+#pragma mark - User Name  Display Action
 - (IBAction)displaynameAction:(id)sender
 {
     if (_displayname.isOn)
@@ -182,12 +204,8 @@
 
     }
 }
-- (IBAction)sliderradiusAction:(id)sender
-{
-    _txtRdius.text=[NSString stringWithFormat:@"%d km",(int)_sliderRdiuse.value];
-    [self radiusvalue];
-
-}
+#pragma mark
+#pragma mark -Display Add Fevorite Table
 - (IBAction)openTableView:(id)sender
 {
     selectedcatagory *vc=[self.storyboard instantiateViewControllerWithIdentifier:@"tableView"];

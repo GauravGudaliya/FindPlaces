@@ -7,12 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MVRadioButton.h"
 @interface settingView : UIViewController
 @property (weak, nonatomic) IBOutlet UISwitch *displayname;
 @property (weak, nonatomic) IBOutlet UITextField *txtRdius;
 @property (weak, nonatomic) IBOutlet UISlider *sliderRdiuse;
 - (IBAction)displaynameAction:(id)sender;
+@property (weak, nonatomic) IBOutlet MVRadioButton *radioList;
+@property (weak, nonatomic) IBOutlet MVRadioButton *radioGrid;
+@property (weak, nonatomic) IBOutlet MVRadioButton *radioGoogle;
+@property (weak, nonatomic) IBOutlet MVRadioButton *radioApple;
+
 @property (weak, nonatomic) IBOutlet UITextField *txtusername;
 - (IBAction)sliderradiusAction:(id)sender;
 @property (weak, nonatomic) IBOutlet UIView *backgroundView;

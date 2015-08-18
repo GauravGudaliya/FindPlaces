@@ -13,7 +13,8 @@
 @end
 
 @implementation selectedcatagory
-
+#pragma mark
+#pragma mark-Initialization
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSMutableArray *aTempArr=[[NSMutableArray alloc]init];
@@ -48,6 +49,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+#pragma mark
+#pragma mark -Table View Deleget
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return typeArr.count;
@@ -82,6 +85,8 @@
 {
     
 }
+#pragma mark
+#pragma mark-Table View Dismiss Action
 - (IBAction)btnHidetableview:(id)sender
 {
     [typeArr enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -99,6 +104,8 @@
     }];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+#pragma mark
+#pragma mark-Button Checked Action
 -(void)btnchechaction:(UIButton*)sender
 {
     CGPoint buttonPosition = [sender convertPoint:CGPointZero toView:self.tblView];

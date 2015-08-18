@@ -13,18 +13,21 @@
 @interface catagoryDetailviewmap ()
 {
     //CLGeocoder *geoCoder;
-
+    UIButton *rightbarbutton;
 }
 @end
 
 @implementation catagoryDetailviewmap
-
+#pragma mark
+#pragma mark-Initialization
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-  
-    UIBarButtonItem *Back = [[UIBarButtonItem alloc]initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:self action:@selector(selectorBack)];
-    self.navigationItem.leftBarButtonItem= Back;
+    rightbarbutton=[[UIButton alloc]initWithFrame:CGRectMake(0, 0,35 ,35)];
+    [rightbarbutton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [rightbarbutton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [rightbarbutton addTarget:self action:@selector(selectorBack) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.leftBarButtonItem=[[UIBarButtonItem alloc]initWithCustomView:rightbarbutton];
     
      _mapview.myLocationEnabled=YES;
     locationManger=[[CLLocationManager alloc]init];
@@ -75,6 +78,8 @@
     [super didReceiveMemoryWarning];
    
 }
+#pragma  mark
+#pragma  mark-CLLocationManager Delegets
 - (void)locationManager:(CLLocationManager *)manager
      didUpdateLocations:(NSArray *)locations
 {
@@ -86,7 +91,7 @@
         CLLocationCoordinate2D circleCenter = locat.coordinate;
         GMSCircle *circ = [GMSCircle circleWithPosition:circleCenter
                                              radius:[[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"] integerValue]];
-        circ.fillColor = [UIColor colorWithRed:0 green:0 blue:0.25 alpha:0.50];
+        circ.fillColor = [UIColor colorWithRed:0 green:0 blue:0.25 alpha:0.15];
         circ.strokeColor = [UIColor blueColor];
         circ.strokeWidth = 5;
         circ.map = _mapview;
@@ -97,6 +102,8 @@
     }
     [locationManger stopUpdatingLocation];
 }
+#pragma  mark
+#pragma  mark-Apple Map Methods
 - (void)makeMapInCenter
 {
     CLLocationCoordinate2D currentCord = locationManger.location.coordinate;
@@ -106,11 +113,8 @@
     [_mapView setRegion:reg];
     
 }
--(void)selectorBack
-{
-    [self.navigationController popViewControllerAnimated:YES];
-    
-}
+#pragma  mark
+#pragma  mark-Segment Control Methods
 - (IBAction)maptypeaction:(id)sender
 {
     
@@ -127,5 +131,9 @@
         _mapview.mapType=kGMSTypeHybrid;
     }
 }
-
+-(void)selectorBack
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    
+}
 @end
