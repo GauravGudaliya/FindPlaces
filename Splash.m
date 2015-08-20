@@ -20,7 +20,6 @@
     self.navigationController.navigationBar.hidden=YES;
     _lblname.text=[[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
      [[AppDelegate sharedInstance] showHUD];
-    
 
     
   [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(Displaylist) userInfo:nil repeats:NO];

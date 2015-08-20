@@ -22,6 +22,8 @@
 }
 @property (weak, nonatomic) IBOutlet UIButton *actionDisplay;
 @property (weak, nonatomic) IBOutlet UIButton *actioncatagory;
+@property (weak, nonatomic) IBOutlet UIButton *btnImage;
+@property (weak, nonatomic) IBOutlet UIButton *btnselectedImg;
 
 @property (weak, nonatomic) IBOutlet UIView *mainView;
 @property (weak, nonatomic) IBOutlet UIView *subView;

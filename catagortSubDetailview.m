@@ -64,7 +64,12 @@
         _lbladdress.text=[results objectForKey:@"formatted_address"];
         _lblwebsite.text=[results objectForKey:@"url"];
         _lblcontact.text=[results objectForKey:@"name"];
-        _lblopne.text=[[[results objectForKey:@"opening_hours"] objectForKey:@"weekday_text"]objectAtIndex:0 ];
+        
+        NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSIndianCalendar];
+        NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
+        int weekday = [comps weekday];
+        
+        _lblopne.text=[[[results objectForKey:@"opening_hours"] objectForKey:@"weekday_text"]objectAtIndex:weekday ];
         
         GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:CLLocationCoordinate2DMake([[[[results objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"]doubleValue], [[[[results objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"]doubleValue]) zoom:13];
         _backGroundView4.camera=camera;

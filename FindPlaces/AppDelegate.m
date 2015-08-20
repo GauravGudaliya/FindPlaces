@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import <GoogleMaps/GoogleMaps.h>
 #import "Constant.h"
+#import "Database.h"
+
 @interface AppDelegate ()
 
 @end
@@ -24,6 +26,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    
+    [[Database shareDatabase]createEditableCopyOfDatabaseIfNeeded];
+    
+    
     [[UINavigationBar appearance] setTitleTextAttributes:
      [NSDictionary dictionaryWithObjectsAndKeys:
       [UIColor whiteColor],
@@ -32,7 +38,7 @@
       NSForegroundColorAttributeName,
       [NSValue valueWithUIOffset:UIOffsetMake(0, -1)],
       NSForegroundColorAttributeName,
-      [UIFont fontWithName:@"Helvetica Neue-Bold" size:20],
+      [UIFont fontWithName:@"Helvetica Neue-Bold" size:25],
       NSFontAttributeName,
       nil]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];

@@ -162,6 +162,7 @@
     {
         _tabview.hidden=YES;
     }
+    _btnImage.hidden=YES;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -188,6 +189,17 @@
     UILabel *lbl=(UILabel *)[cell1 viewWithTag:100];
     lbl.text=[[[typeArr objectAtIndex:indexPath.row] capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
     cell1.layer.cornerRadius=10;
+    if (indexPath.row==60)
+    {
+        _btnselectedImg.hidden=NO;
+        _btnImage.hidden=YES;
+    }
+    if (indexPath.row==95)
+    {
+        _btnselectedImg.hidden=YES;
+        _btnImage.hidden=NO;
+    }
+
     return cell1;
     
 }
@@ -208,9 +220,7 @@
         Catagorydetailview.latitude=_latitude;
         Catagorydetailview.longitude=_longitude;
         Catagorydetailview.type=_type;
-    
         Catagorydetailview.row=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
-       
     }
 }
 #pragma mark
@@ -239,10 +249,18 @@
     UILabel *lbl=(UILabel *)[cell1 viewWithTag:201];
     lbl.text=[[[typeArr objectAtIndex:indexPath.row] capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
     UIView *view=(UIView *)[cell1 viewWithTag:11];
-    
+    if (indexPath.row==85)
+    {
+        _btnselectedImg.hidden=NO;
+        _btnImage.hidden=YES;
+    }
+
     view.layer.cornerRadius=10;
-   
-  
+    if (indexPath.row==95)
+    {
+        _btnselectedImg.hidden=YES;
+        _btnImage.hidden=NO;
+    }
     return cell1;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -262,7 +280,6 @@
         Catagorydetailview.latitude=_latitude;
         Catagorydetailview.longitude=_longitude;
         Catagorydetailview.type=_type;
-    
         Catagorydetailview.row=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
         
     }

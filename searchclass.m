@@ -9,9 +9,11 @@
 #import "searchclass.h"
 #import "SWRevealViewController.h"
 #import "Constant.h"
-@interface searchclass ()
+#import <MapKit/MapKit.h>
+@interface searchclass ()<CLLocationManagerDelegate>
 {
     NSMutableArray *adata;
+    CLLocationManager *locationManger;
 }
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *selectDrower;
 @end
@@ -42,8 +44,15 @@
     }
     _mapView.settings.myLocationButton=YES;
     _mapView.settings.compassButton=YES;
-    [[self navigationController].navigationBar setBarTintColor:[UIColor colorWithRed:0 green:0.74 blue:0.83 alpha:0.5]];
 
+    [[self navigationController].navigationBar setBarTintColor:[UIColor colorWithRed:0 green:0.74 blue:0.83 alpha:0.5]];
+    locationManger=[[CLLocationManager alloc]init];
+    locationManger.delegate=self;
+    if([locationManger respondsToSelector:@selector(requestWhenInUseAuthorization)])
+    {
+        [locationManger requestWhenInUseAuthorization];
+    }
+    [locationManger startUpdatingLocation];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -135,6 +144,16 @@
         cell.contentView.backgroundColor = [UIColor whiteColor];
     }
 }
+#pragma mark
+#pragma mark-CLLocationManager Deleget Method
+- (void)locationManager:(CLLocationManager *)manager
+     didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *location=[locations firstObject];
+    GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:location.coordinate zoom:15];
+    _mapView.camera=camera;
+}
+#pragma mark
 #pragma mark-Segment Control Methods
 - (IBAction)maptypeaction:(id)sender
 {

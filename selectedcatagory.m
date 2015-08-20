@@ -17,6 +17,9 @@
 #pragma mark-Initialization
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
     NSMutableArray *aTempArr=[[NSMutableArray alloc]init];
     NSArray *arr=[[Database sharedDatabase]SelectAllFromTable:@"select catagoryname from favorite"];
    
