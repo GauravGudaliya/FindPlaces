@@ -152,6 +152,7 @@
     CLLocation *location=[locations firstObject];
     GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:location.coordinate zoom:15];
     _mapView.camera=camera;
+    [locationManger stopUpdatingLocation];
 }
 #pragma mark
 #pragma mark-Segment Control Methods
