@@ -263,6 +263,12 @@
     }
     return cell1;
 }
+
+- (void)scrollToRowAtIndexPath:(NSIndexPath *)indexPath atScrollPosition:(UITableViewScrollPosition)scrollPosition animated:(BOOL)animated
+{
+    NSLog(@"%@",indexPath);
+    NSLog(@"%ld",(long)scrollPosition);
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([[typeArr objectAtIndex:indexPath.row]isEqualToString:@"add"])

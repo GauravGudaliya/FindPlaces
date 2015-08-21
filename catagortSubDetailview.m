@@ -134,6 +134,7 @@
         UIAlertView *aUIAlert = [[UIAlertView alloc]initWithTitle:@"Share with me" message:@"Your facebook account is not configured. Please configure it from your iphone's settings." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [aUIAlert show];
     }
+    barbutton.selected=NO;
 }
 #pragma mark
 #pragma mark-TWShare Action
@@ -160,6 +161,7 @@
         UIAlertView *aUIAlert = [[UIAlertView alloc]initWithTitle:@"Share with me" message:@"Your twitter account is not configured. Please configure it from your iphone's settings." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [aUIAlert show];
     }
+    barbutton.selected=NO;
 }
 - (IBAction)btntypeAction
 {
