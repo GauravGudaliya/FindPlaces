@@ -97,6 +97,7 @@
     {
         _tabview.hidden=YES;
         _notFoundicon.hidden=NO;
+        _btnmap.hidden=YES;
     }
     
 }

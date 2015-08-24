@@ -67,10 +67,14 @@
         
         NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSIndianCalendar];
         NSDateComponents *comps = [gregorian components:NSWeekdayCalendarUnit fromDate:[NSDate date]];
-        int weekday = [comps weekday];
+        int weekday = [comps weekday]-2;
         
         _lblopne.text=[[[results objectForKey:@"opening_hours"] objectForKey:@"weekday_text"]objectAtIndex:weekday ];
-        
+        if([_lblopne.text isEqualToString:nil])
+        {
+            _backGroundView1.hidden=YES;
+            _backGoundView3.bounds=CGRectMake(_backGoundView2.frame.origin.x, _backGoundView2.frame.origin.y+ _backGoundView2.frame.size.height, _backGroundView1.frame.size.width, _backGroundView1.frame.size.height);
+        }
         GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:CLLocationCoordinate2DMake([[[[results objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lat"]doubleValue], [[[[results objectForKey:@"geometry"] objectForKey:@"location"] objectForKey:@"lng"]doubleValue]) zoom:13];
         _backGroundView4.camera=camera;
         

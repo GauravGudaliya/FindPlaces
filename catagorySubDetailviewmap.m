@@ -49,7 +49,7 @@
         _mapview.myLocationEnabled=YES;
         marker.map=_mapview;
         marker.title=[_result objectForKey:@"name"];
-        [self droepath:CLLocationCoordinate2DMake(locationManger.location.coordinate.latitude, locationManger.location.coordinate.longitude) :CLLocationCoordinate2DMake([_latitude doubleValue], [_longitude doubleValue])];
+//        [self droepath:CLLocationCoordinate2DMake(locationManger.location.coordinate.latitude, locationManger.location.coordinate.longitude) :CLLocationCoordinate2DMake([_latitude doubleValue], [_longitude doubleValue])];
         _mapview.settings.myLocationButton=YES;
         _mapview.settings.compassButton=YES;
     }
@@ -59,7 +59,7 @@
         [self makeMapInCenter];
         sourceCord=locationManger.location.coordinate;
         destCord=CLLocationCoordinate2DMake([_latitude doubleValue], [_longitude doubleValue]);
-        
+       
         MKPointAnnotation *pinAnotation = [[MKPointAnnotation alloc] init];
         pinAnotation.coordinate = destCord;
         pinAnotation.title =[_result objectForKey:@"name"];
@@ -111,6 +111,8 @@
             [[AppDelegate sharedInstance] hideHUD];
             if (error) {
                 NSLog(@"Error :: %@",error);
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Directions Not Available" message:@"A route to the nearest road cannot be determined." delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil,nil];
+                [alert show];
             }
             else{
                 NSArray *aArrRoutes = [response routes];
@@ -177,6 +179,7 @@
         
         GMSCameraPosition *camera=[GMSCameraPosition cameraWithTarget:locat.coordinate zoom:15];
         _mapview.camera=camera;
+        
         CLLocationCoordinate2D circleCenter = locat.coordinate;
         GMSCircle *circ = [GMSCircle circleWithPosition:circleCenter
                                                  radius:[[[NSUserDefaults standardUserDefaults] objectForKey:@"rediusvalue"] integerValue]];
@@ -184,11 +187,17 @@
         circ.strokeColor = [UIColor blueColor];
         circ.strokeWidth = 5;
         circ.map = _mapview;
+        [self droepath:CLLocationCoordinate2DMake(locationManger.location.coordinate.latitude, locationManger.location.coordinate.longitude) :CLLocationCoordinate2DMake([_latitude doubleValue], [_longitude doubleValue])];
     }
     else
     {
         
     }
+    CLLocation *locA = [[CLLocation alloc] initWithLatitude:locationManger.location.coordinate.latitude longitude:locationManger.location.coordinate.longitude];
+    
+    CLLocation *locB = [[CLLocation alloc] initWithLatitude:[_latitude doubleValue] longitude:[_longitude doubleValue]];
+    CLLocationDistance distance = [locA distanceFromLocation:locB];
+    _lblDistance.text=[NSString stringWithFormat:@"%f km",distance];
     [locationManger stopUpdatingLocation];
 }
 #pragma mark-

@@ -43,12 +43,11 @@
       nil]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 
-    if ([self networkCheck])
+    if (![self networkCheck])
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Status" message:@"Newtwork is Not Available \n Please Check ?" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil,nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Status" message:@"Newtwork is Not Available \n Please Enable Network Settinds?" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:@"Settings",nil];
         alert.tag=001;
         [alert show];
-        [self applicationWillTerminate:application];
     }
     else
     {
@@ -110,6 +109,17 @@
     else
     {
         return 1;
+    }
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex==0)
+    {
+        exit(1);
+    }
+    else
+    {
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
     }
 }
 @end

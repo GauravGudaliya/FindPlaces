@@ -992,6 +992,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="568"/>
                     <connections>
+                        <outlet property="btnmap" destination="sGC-0C-6aX" id="SRn-TF-IzR"/>
                         <outlet property="mainView" destination="kLv-Q4-Jin" id="3T5-Zx-hqv"/>
                         <outlet property="notFoundicon" destination="Ip2-JD-qII" id="gtO-an-fCR"/>
                         <outlet property="sliderRdiuse" destination="vnc-Ge-sNZ" id="gPH-px-q7k"/>
@@ -1341,6 +1342,24 @@
                                     <outlet property="delegate" destination="RYd-n6-X2B" id="QjQ-MW-0eI"/>
                                 </connections>
                             </mapView>
+                            <view alpha="0.49999999999999961" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UCQ-RF-Ynf">
+                                <rect key="frame" x="0.0" y="516" width="320" height="52"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Distance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFb-hk-DY5">
+                                        <rect key="frame" x="8" y="3" width="81" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="grj-eG-y7b">
+                                        <rect key="frame" x="113" y="3" width="207" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1359,6 +1378,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="lblDistance" destination="grj-eG-y7b" id="mZl-ji-CMl"/>
                         <outlet property="mapView" destination="sYW-7m-YFu" id="lC9-Ol-31H"/>
                         <outlet property="maptype" destination="QbE-g3-QRt" id="FPs-Rs-Clf"/>
                         <outlet property="mapview" destination="836-UJ-173" id="QTy-1X-Zvt"/>

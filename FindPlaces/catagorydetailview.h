@@ -18,6 +18,7 @@
     NSMutableData *webdata;
     NSMutableDictionary *result;
 }
+@property (weak, nonatomic) IBOutlet UIButton *btnmap;
 @property(strong,nonatomic)NSString *row;
 @property(strong,nonatomic)NSString *longitude;
 @property(strong,nonatomic)NSString *latitude;

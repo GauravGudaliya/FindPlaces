@@ -25,5 +25,6 @@
 @property(strong,nonatomic)NSString *latitude;
 @property(strong,nonatomic)NSMutableDictionary *result;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UILabel *lblDistance;
 @property(strong,nonatomic)CLLocation *loca;
 @end

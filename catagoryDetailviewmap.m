@@ -113,6 +113,8 @@
     [_mapView setRegion:reg];
     
 }
+
+
 #pragma  mark
 #pragma  mark-Segment Control Methods
 - (IBAction)maptypeaction:(id)sender
