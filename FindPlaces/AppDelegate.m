@@ -42,17 +42,19 @@
       NSFontAttributeName,
       nil]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
-    
-    Reachability *reachibility=[Reachability reachabilityForInternetConnection];
-    NetworkStatus status=[reachibility currentReachabilityStatus];
-    [reachibility startNotifier];
-    if (status == !NotReachable)
+
+    if ([self networkCheck])
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Status" message:@"Newtwork is Not Available \n Please Check ?" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil,nil];
         alert.tag=001;
         [alert show];
+        [self applicationWillTerminate:application];
     }
-    _navController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+    else
+    {
+          _navController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+    }
+  
     [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:0.2 green:1 blue:1 alpha:0.5]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     
@@ -96,5 +98,18 @@
 -(void)hideHUD
 {
     [MBProgressHUD hideHUDForView:self.window animated:YES];
+}
+-(BOOL)networkCheck
+{
+    Reachability *reachibility=[Reachability reachabilityForInternetConnection];
+    [reachibility startNotifier];
+    if ([reachibility isReachable])
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
 }
 @end

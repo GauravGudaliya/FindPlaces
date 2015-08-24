@@ -271,23 +271,31 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([[typeArr objectAtIndex:indexPath.row]isEqualToString:@"add"])
+    if ([[AppDelegate sharedInstance]networkCheck])
     {
-        selectedcatagory *vc=[self.storyboard instantiateViewControllerWithIdentifier:@"tableView"];
-        [self presentViewController:vc animated:YES completion:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Network Status" message:@"Newtwork is Not Available \n Please Check ?" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil,nil];
+        alert.tag=001;
+        [alert show];
     }
     else
     {
-        catagorydetailview *Catagorydetailview=[self.storyboard instantiateViewControllerWithIdentifier:@"catagoryDetailviewSegue"];
-        [self.navigationController pushViewController:Catagorydetailview animated:YES];
-    
-        Catagorydetailview.title=[[[typeArr objectAtIndex:indexPath.row] capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
-        _type=[typeArr objectAtIndex:indexPath.row];
-        Catagorydetailview.latitude=_latitude;
-        Catagorydetailview.longitude=_longitude;
-        Catagorydetailview.type=_type;
-        Catagorydetailview.row=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
-        
+        if ([[typeArr objectAtIndex:indexPath.row]isEqualToString:@"add"])
+        {
+            selectedcatagory *vc=[self.storyboard instantiateViewControllerWithIdentifier:@"tableView"];
+            [self presentViewController:vc animated:YES completion:nil];
+        }
+        else
+        {
+            catagorydetailview *Catagorydetailview=[self.storyboard instantiateViewControllerWithIdentifier:@"catagoryDetailviewSegue"];
+            [self.navigationController pushViewController:Catagorydetailview animated:YES];
+            
+            Catagorydetailview.title=[[[typeArr objectAtIndex:indexPath.row] capitalizedString] stringByReplacingOccurrencesOfString:@"_" withString:@" "];
+            _type=[typeArr objectAtIndex:indexPath.row];
+            Catagorydetailview.latitude=_latitude;
+            Catagorydetailview.longitude=_longitude;
+            Catagorydetailview.type=_type;
+            Catagorydetailview.row=[NSString stringWithFormat:@"%ld",(long)indexPath.row];
+        }
     }
 }
 #pragma mark

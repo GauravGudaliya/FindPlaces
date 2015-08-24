@@ -15,6 +15,7 @@
 @property (strong , nonatomic) UINavigationController *navController;
 -(void)showHUD;
 -(void)hideHUD;
+-(BOOL)networkCheck;
 +(AppDelegate *)sharedInstance;
 @end
 
